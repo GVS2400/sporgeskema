@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>4.Y – Spørgeskema → ChatGPT-prompt (bogside-look)</title>
+  <title>4.Y – Spørgeskema → Print (personligt matematik-ark)</title>
 
   <style>
     :root{
@@ -148,7 +148,7 @@
     .options{
       margin-top:10px;
       display:flex;
-      flex-direction:column; /* under hinanden */
+      flex-direction:column;
       gap:10px;
     }
     label.opt{
@@ -221,6 +221,7 @@
       font-size: 14px;
       min-height: var(--tap);
     }
+    button:disabled{ opacity:.7; cursor:not-allowed; }
     .primary{
       color:white;
       background: linear-gradient(180deg, rgba(34,197,94,.95), rgba(34,197,94,.80));
@@ -279,6 +280,9 @@
     }
     .toast.show{ display:block; }
 
+    /* Teacher-only UI hidden on screen */
+    .teacherOnly{ display:none; }
+
     /* Print-ark (bogside) */
     .printSheet{
       display:none;
@@ -305,7 +309,7 @@
     }
 
     @media (min-width: 980px){
-      main{ grid-template-columns: 1.05fr .95fr; align-items:start; }
+      main{ grid-template-columns: 1fr; align-items:start; }
       .row2{ grid-template-columns: 1fr 1fr; }
     }
 
@@ -315,7 +319,10 @@
       body{ background: white !important; }
       main{ display:block; padding:0; margin:0; max-width: none; }
       .card{ box-shadow:none; border:0; }
-      .printSheet{ display:block !important; border:0; border-radius:0; box-shadow:none; padding:0; margin:0; }
+
+      /* force print sheet visible */
+      #printSheet{ display:block !important; border:0; border-radius:0; box-shadow:none; padding:0; margin:0; }
+      #resultOut{ display:block !important; }
       .printTitle{ font-size: 14px; margin-bottom: 10px; }
     }
   </style>
@@ -325,13 +332,13 @@
   <header>
     <div class="hero">
       <div style="flex:1; min-width:260px;">
-        <h1>🧠 4.Y spørgeskema → ChatGPT</h1>
+        <h1>🧠 4.Y spørgeskema → Print</h1>
         <p class="lead">
           Sæt kryds. Når du er færdig, laver siden automatisk et personligt matematik-ark og åbner print.
         </p>
         <div class="pillRow">
           <span class="pill">✅ Svar under hinanden</span>
-          <span class="pill">⚡️ Auto-generér via API</span>
+          <span class="pill">⚡️ Auto via API</span>
           <span class="pill">🖨️ Print direkte</span>
         </div>
       </div>
@@ -570,29 +577,23 @@
 
       <div class="actions">
         <div class="btns">
-          <button class="primary" type="button" id="buildBtn">✨ Lav prompt</button>
-          <button class="secondary" type="button" id="downloadBtn">⬇️ Download .txt</button>
+          <button class="primary" type="button" id="buildBtn">🖨️ Lav og print mit matematik-ark</button>
+          <button class="secondary teacherOnly" type="button" id="downloadBtn">⬇️ Download .txt</button>
           <button class="ghost" type="button" id="resetBtn">🔄 Nulstil</button>
         </div>
         <div class="hint" id="status"></div>
       </div>
     </section>
 
-    <!-- OUTPUT -->
-    <aside class="card" aria-label="ChatGPT prompt">
+    <!-- Teacher-only prompt view (hidden) -->
+    <aside class="card teacherOnly" aria-label="ChatGPT prompt">
       <div class="cardHead">
         <h2 class="cardTitle">📄 Tekst til ChatGPT</h2>
-        <p class="sub">Prompten vises her (og sendes automatisk til API når du trykker “Lav prompt”).</p>
+        <p class="sub">Prompten vises her (kun til lærer).</p>
       </div>
       <div class="content">
-        <textarea id="promptOut" placeholder="Tryk “Lav prompt” …"></textarea>
+        <textarea id="promptOut" placeholder="Tryk “Lav og print” …"></textarea>
         <p class="note">Download gemmer prompten som .txt (klar til copy/paste).</p>
-
-        <!-- Print-ark -->
-        <section class="printSheet" id="printSheet">
-          <p class="printTitle" id="printTitle">📄 Dit print-ark</p>
-          <pre id="resultOut"></pre>
-        </section>
       </div>
       <div class="actions">
         <div class="btns">
@@ -602,6 +603,13 @@
         <div class="hint">✅ Klar</div>
       </div>
     </aside>
+
+    <!-- PRINT ONLY -->
+    <section class="printSheet" id="printSheet">
+      <p class="printTitle" id="printTitle"></p>
+      <pre id="resultOut"></pre>
+    </section>
+
   </main>
 
   <div class="toast" id="toast">Kopieret ✅</div>
@@ -642,7 +650,7 @@
       return $$(`input[type="checkbox"][name="${name}"]:checked`).map(x=>x.value);
     };
 
-    // --- Prompt builder (din eksisterende) ---
+    // --- Prompt builder ---
     const buildPrompt = () => {
       const studentName = ($("#studentName").value || "").trim() || "Elev";
       const studentClass = ($("#studentClass").value || "").trim() || "4Y";
@@ -738,12 +746,14 @@ ELEVENS SVAR:
 ${answers}
 `;
 
-      $("#promptOut").value = prompt;
-      $("#status").textContent = "⏳ Sender til API…";
+      // teacher-only textarea (hidden in UI)
+      const ta = $("#promptOut");
+      if (ta) ta.value = prompt;
+
       return { prompt, studentName, studentClass };
     };
 
-    // --- Download prompt (.txt) ---
+    // --- Download prompt (.txt) (teacher-only) ---
     const downloadTxt = () => {
       const { prompt, studentName, studentClass } = buildPrompt();
       const safeName = (studentName || "Elev")
@@ -769,60 +779,58 @@ ${answers}
       toast("Downloaded ✅");
     };
 
-    // --- NEW: Call Cloudflare Worker → get worksheet → show + print ---
+    // --- Call Cloudflare Worker → get worksheet → show + print ---
     async function generateWorksheetAndPrint(){
-  const { prompt, studentName, studentClass } = buildPrompt();
+      const { prompt, studentName, studentClass } = buildPrompt();
 
-  // UI
-  $("#buildBtn").disabled = true;
-  $("#status").textContent = "⏳ Laver dit ark…";
+      $("#buildBtn").disabled = true;
+      $("#status").textContent = "⏳ Laver dit ark…";
 
-  const sheet = $("#printSheet");
-  const out = $("#resultOut");
-  const title = $("#printTitle");
+      const sheet = $("#printSheet");
+      const out = $("#resultOut");
+      const title = $("#printTitle");
 
-  sheet.style.display = "block";  // vigtigt: skal være synligt inden print
-  out.textContent = "";
-  title.textContent = `📄 Matematik-ark (${studentName} – ${studentClass})`;
+      sheet.style.display = "block";     // vigtigt: synligt før print
+      out.textContent = "";
+      title.textContent = `📄 Matematik-ark (${studentName} – ${studentClass})`;
 
-  try{
-    const res = await fetch(WORKER_URL, {
-      method: "POST",
-      headers: {"Content-Type":"application/json"},
-      body: JSON.stringify({ prompt })
-    });
+      try{
+        const res = await fetch(WORKER_URL, {
+          method: "POST",
+          headers: {"Content-Type":"application/json"},
+          body: JSON.stringify({ prompt })
+        });
 
-    if(!res.ok){
-      const err = await res.text();
-      $("#status").textContent = "❌ Fejl fra API";
-      alert("Fejl fra API:\n\n" + err);
-      return;
+        if(!res.ok){
+          const err = await res.text();
+          $("#status").textContent = "❌ Fejl fra API";
+          alert("Fejl fra API:\n\n" + err);
+          return;
+        }
+
+        const text = await res.text();
+        out.textContent = text;
+
+        $("#status").textContent = "✅ Klar – åbner print…";
+
+        // Vent 2 frames så DOM når at tegne teksten før print
+        await new Promise(r => requestAnimationFrame(r));
+        await new Promise(r => requestAnimationFrame(r));
+        setTimeout(() => window.print(), 150);
+
+      }catch(e){
+        $("#status").textContent = "❌ Netværksfejl";
+        alert("Netværksfejl:\n\n" + (e?.message || e));
+      }finally{
+        $("#buildBtn").disabled = false;
+      }
     }
 
-    const text = await res.text();
-
-    // Sæt resultatet
-    out.textContent = text;
-    $("#status").textContent = "✅ Klar – åbner print…";
-
-    // 🔥 Det her er tricket:
-    // Vent 2 frames så browseren når at layout/tegne teksten før print
-    await new Promise(r => requestAnimationFrame(r));
-    await new Promise(r => requestAnimationFrame(r));
-
-    // lille ekstra buffer (kan være nødvendig på Chromebooks)
-    setTimeout(() => window.print(), 150);
-
-  }catch(e){
-    $("#status").textContent = "❌ Netværksfejl";
-    alert("Netværksfejl:\n\n" + (e?.message || e));
-  }finally{
-    $("#buildBtn").disabled = false;
-  }
-}
     // Buttons
     $("#buildBtn").addEventListener("click", generateWorksheetAndPrint);
-    $("#downloadBtn").addEventListener("click", downloadTxt);
+
+    const dl = $("#downloadBtn");
+    if (dl) dl.addEventListener("click", downloadTxt);
 
     $("#resetBtn").addEventListener("click", () => {
       $("#survey").reset();
@@ -830,22 +838,25 @@ ${answers}
       $("#studentClass").value = "";
       $("#q4other").value = "";
       $("#q14").value = "";
-      $("#promptOut").value = "";
+      const ta = $("#promptOut"); if (ta) ta.value = "";
       $("#status").textContent = "";
       $("#printSheet").style.display = "none";
       $("#resultOut").textContent = "";
+      $("#printTitle").textContent = "";
       toast("Nulstillet 🔄");
     });
 
-    $("#selectBtn").addEventListener("click", () => {
+    const selBtn = $("#selectBtn");
+    if (selBtn) selBtn.addEventListener("click", () => {
       const ta = $("#promptOut");
       ta.focus();
       ta.select();
       toast("Markeret ✍️");
     });
 
-    $("#copyBtn").addEventListener("click", async () => {
-      const text = $("#promptOut").value.trim() || buildPrompt().prompt.trim();
+    const copyBtn = $("#copyBtn");
+    if (copyBtn) copyBtn.addEventListener("click", async () => {
+      const text = ($("#promptOut")?.value || "").trim() || buildPrompt().prompt.trim();
       if (!text) { toast("Lav prompt først 🙂"); return; }
       try{
         await navigator.clipboard.writeText(text);
