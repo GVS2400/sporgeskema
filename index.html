@@ -771,55 +771,55 @@ ${answers}
 
     // --- NEW: Call Cloudflare Worker → get worksheet → show + print ---
     async function generateWorksheetAndPrint(){
-      const { prompt, studentName, studentClass } = buildPrompt();
+  const { prompt, studentName, studentClass } = buildPrompt();
 
-      // UI prep
-      $("#buildBtn").disabled = true;
-      $("#downloadBtn").disabled = true;
-      $("#status").textContent = "⏳ Laver dit ark…";
+  // UI
+  $("#buildBtn").disabled = true;
+  $("#status").textContent = "⏳ Laver dit ark…";
 
-      const sheet = $("#printSheet");
-      const out = $("#resultOut");
-      const title = $("#printTitle");
-      sheet.style.display = "none";
-      out.textContent = "";
+  const sheet = $("#printSheet");
+  const out = $("#resultOut");
+  const title = $("#printTitle");
 
-      title.textContent = `📄 Dit print-ark (${studentName} – ${studentClass})`;
+  sheet.style.display = "block";  // vigtigt: skal være synligt inden print
+  out.textContent = "";
+  title.textContent = `📄 Matematik-ark (${studentName} – ${studentClass})`;
 
-      try{
-        const res = await fetch(WORKER_URL, {
-          method: "POST",
-          headers: {"Content-Type":"application/json"},
-          body: JSON.stringify({ prompt })
-        });
+  try{
+    const res = await fetch(WORKER_URL, {
+      method: "POST",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify({ prompt })
+    });
 
-        if(!res.ok){
-          const err = await res.text();
-          $("#status").textContent = "❌ Fejl";
-          alert("Fejl fra API:\n\n" + err);
-          return;
-        }
-
-        const text = await res.text();
-
-        out.textContent = text;
-        sheet.style.display = "block";
-
-        $("#status").textContent = "✅ Klar til print";
-        toast("Klar ✅");
-
-        // Auto-print
-        window.print();
-
-      }catch(e){
-        $("#status").textContent = "❌ Netværksfejl";
-        alert("Netværksfejl:\n\n" + (e?.message || e));
-      }finally{
-        $("#buildBtn").disabled = false;
-        $("#downloadBtn").disabled = false;
-      }
+    if(!res.ok){
+      const err = await res.text();
+      $("#status").textContent = "❌ Fejl fra API";
+      alert("Fejl fra API:\n\n" + err);
+      return;
     }
 
+    const text = await res.text();
+
+    // Sæt resultatet
+    out.textContent = text;
+    $("#status").textContent = "✅ Klar – åbner print…";
+
+    // 🔥 Det her er tricket:
+    // Vent 2 frames så browseren når at layout/tegne teksten før print
+    await new Promise(r => requestAnimationFrame(r));
+    await new Promise(r => requestAnimationFrame(r));
+
+    // lille ekstra buffer (kan være nødvendig på Chromebooks)
+    setTimeout(() => window.print(), 150);
+
+  }catch(e){
+    $("#status").textContent = "❌ Netværksfejl";
+    alert("Netværksfejl:\n\n" + (e?.message || e));
+  }finally{
+    $("#buildBtn").disabled = false;
+  }
+}
     // Buttons
     $("#buildBtn").addEventListener("click", generateWorksheetAndPrint);
     $("#downloadBtn").addEventListener("click", downloadTxt);
