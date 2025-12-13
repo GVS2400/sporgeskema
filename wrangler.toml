@@ -1,1 +1,4 @@
-
+name = "sporgeskema"
+main = "worker.js"
+compatibility_date = "2025-12-13"
+workers_dev = true
