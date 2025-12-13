@@ -246,7 +246,7 @@
     }
     textarea{
       width:100%;
-      min-height: 320px;
+      min-height: 260px;
       padding: 12px 12px;
       border-radius: 18px;
       border:1px solid var(--line);
@@ -279,9 +279,44 @@
     }
     .toast.show{ display:block; }
 
+    /* Print-ark (bogside) */
+    .printSheet{
+      display:none;
+      background:white;
+      border:1px solid var(--line);
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: var(--shadow);
+      margin-top: 12px;
+    }
+    .printTitle{
+      font-weight: 900;
+      margin: 0 0 8px;
+      font-size: 14px;
+      color: #111827;
+    }
+    #resultOut{
+      margin:0;
+      white-space: pre-wrap;
+      font-family: "Times New Roman", Times, serif;
+      font-size: 13.5px;
+      line-height: 1.35;
+      color: #111827;
+    }
+
     @media (min-width: 980px){
       main{ grid-template-columns: 1.05fr .95fr; align-items:start; }
       .row2{ grid-template-columns: 1fr 1fr; }
+    }
+
+    @media print{
+      header, .card[aria-label="Spørgeskema"] { display:none !important; }
+      textarea, .actions, .toast, .note { display:none !important; }
+      body{ background: white !important; }
+      main{ display:block; padding:0; margin:0; max-width: none; }
+      .card{ box-shadow:none; border:0; }
+      .printSheet{ display:block !important; border:0; border-radius:0; box-shadow:none; padding:0; margin:0; }
+      .printTitle{ font-size: 14px; margin-bottom: 10px; }
     }
   </style>
 </head>
@@ -292,13 +327,12 @@
       <div style="flex:1; min-width:260px;">
         <h1>🧠 4.Y spørgeskema → ChatGPT</h1>
         <p class="lead">
-          Sæt kryds. Når du er færdig, kan du lave en tekst som kan sættes direkte ind i ChatGPT
-          (og downloades som .txt).
+          Sæt kryds. Når du er færdig, laver siden automatisk et personligt matematik-ark og åbner print.
         </p>
         <div class="pillRow">
           <span class="pill">✅ Svar under hinanden</span>
-          <span class="pill">📄 Prompt med “matematikbog-look” krav</span>
-          <span class="pill">⬇️ Download .txt</span>
+          <span class="pill">⚡️ Auto-generér via API</span>
+          <span class="pill">🖨️ Print direkte</span>
         </div>
       </div>
 
@@ -548,11 +582,17 @@
     <aside class="card" aria-label="ChatGPT prompt">
       <div class="cardHead">
         <h2 class="cardTitle">📄 Tekst til ChatGPT</h2>
-        <p class="sub">Den her tekst kan sættes direkte ind i ChatGPT.</p>
+        <p class="sub">Prompten vises her (og sendes automatisk til API når du trykker “Lav prompt”).</p>
       </div>
       <div class="content">
         <textarea id="promptOut" placeholder="Tryk “Lav prompt” …"></textarea>
         <p class="note">Download gemmer prompten som .txt (klar til copy/paste).</p>
+
+        <!-- Print-ark -->
+        <section class="printSheet" id="printSheet">
+          <p class="printTitle" id="printTitle">📄 Dit print-ark</p>
+          <pre id="resultOut"></pre>
+        </section>
       </div>
       <div class="actions">
         <div class="btns">
@@ -567,6 +607,9 @@
   <div class="toast" id="toast">Kopieret ✅</div>
 
   <script>
+    // ✅ Din Cloudflare Worker endpoint:
+    const WORKER_URL = "https://sporgeskema.ahalkjaer.workers.dev";
+
     const $ = (sel, el=document) => el.querySelector(sel);
     const $$ = (sel, el=document) => Array.from(el.querySelectorAll(sel));
 
@@ -599,7 +642,7 @@
       return $$(`input[type="checkbox"][name="${name}"]:checked`).map(x=>x.value);
     };
 
-    // --- This is the important part: embed the "math book look" instructions in the generated prompt ---
+    // --- Prompt builder (din eksisterende) ---
     const buildPrompt = () => {
       const studentName = ($("#studentName").value || "").trim() || "Elev";
       const studentClass = ($("#studentClass").value || "").trim() || "4Y";
@@ -696,10 +739,11 @@ ${answers}
 `;
 
       $("#promptOut").value = prompt;
-      $("#status").textContent = "✅ Prompten er klar!";
+      $("#status").textContent = "⏳ Sender til API…";
       return { prompt, studentName, studentClass };
     };
 
+    // --- Download prompt (.txt) ---
     const downloadTxt = () => {
       const { prompt, studentName, studentClass } = buildPrompt();
       const safeName = (studentName || "Elev")
@@ -725,7 +769,59 @@ ${answers}
       toast("Downloaded ✅");
     };
 
-    $("#buildBtn").addEventListener("click", () => { buildPrompt(); toast("Prompt klar ✅"); });
+    // --- NEW: Call Cloudflare Worker → get worksheet → show + print ---
+    async function generateWorksheetAndPrint(){
+      const { prompt, studentName, studentClass } = buildPrompt();
+
+      // UI prep
+      $("#buildBtn").disabled = true;
+      $("#downloadBtn").disabled = true;
+      $("#status").textContent = "⏳ Laver dit ark…";
+
+      const sheet = $("#printSheet");
+      const out = $("#resultOut");
+      const title = $("#printTitle");
+      sheet.style.display = "none";
+      out.textContent = "";
+
+      title.textContent = `📄 Dit print-ark (${studentName} – ${studentClass})`;
+
+      try{
+        const res = await fetch(WORKER_URL, {
+          method: "POST",
+          headers: {"Content-Type":"application/json"},
+          body: JSON.stringify({ prompt })
+        });
+
+        if(!res.ok){
+          const err = await res.text();
+          $("#status").textContent = "❌ Fejl";
+          alert("Fejl fra API:\n\n" + err);
+          return;
+        }
+
+        const text = await res.text();
+
+        out.textContent = text;
+        sheet.style.display = "block";
+
+        $("#status").textContent = "✅ Klar til print";
+        toast("Klar ✅");
+
+        // Auto-print
+        window.print();
+
+      }catch(e){
+        $("#status").textContent = "❌ Netværksfejl";
+        alert("Netværksfejl:\n\n" + (e?.message || e));
+      }finally{
+        $("#buildBtn").disabled = false;
+        $("#downloadBtn").disabled = false;
+      }
+    }
+
+    // Buttons
+    $("#buildBtn").addEventListener("click", generateWorksheetAndPrint);
     $("#downloadBtn").addEventListener("click", downloadTxt);
 
     $("#resetBtn").addEventListener("click", () => {
@@ -736,6 +832,8 @@ ${answers}
       $("#q14").value = "";
       $("#promptOut").value = "";
       $("#status").textContent = "";
+      $("#printSheet").style.display = "none";
+      $("#resultOut").textContent = "";
       toast("Nulstillet 🔄");
     });
 
