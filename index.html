@@ -1,375 +1,200 @@
 <!doctype html>
 <html lang="da">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Min måde at lære på – 4Y</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fremtidens Matematik på GVS</title>
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-  <main class="wrap">
-    <header class="card">
-      <h1>🌈 MIN MÅDE AT LÆRE PÅ</h1>
-      <p class="lead">(hjælp os med at lave den bedste skole for dig)</p>
-      <ul class="rules">
-        <li>👉 Der er ingen rigtige eller forkerte svar.</li>
-        <li>👉 Du må gerne vælge flere svar.</li>
-        <li>👉 Svar ærligt – det hjælper os med at lave bedre undervisning.</li>
-      </ul>
+<main class="wrap">
 
-      <div class="grid">
-        <label class="field">
-          <span>Dit navn</span>
-          <input type="text" id="name" placeholder="Fx Elias" />
-        </label>
-        <label class="field">
-          <span>Din klasse</span>
-          <input type="text" id="class" placeholder="Fx 4Y" value="4Y" />
-        </label>
-      </div>
-    </header>
+  <header class="card">
+    <h1>🌈 Fremtidens Matematik på GVS</h1>
+    <p class="lead">
+      Udfyld spørgeskemaet.  
+      Når du er færdig, laver siden en prompt, som læreren bruger til at lave en personlig matematikopgave.
+    </p>
 
-    <form id="survey" class="card" autocomplete="off">
+    <div class="grid">
+      <label class="field">
+        <span>Dit navn</span>
+        <input type="text" id="name" placeholder="Fx Elias">
+      </label>
 
-      <!-- 1 -->
-      <section class="q">
-        <h2>🧠 1. Når jeg arbejder med matematik … <span class="meta">(sæt max 1 X)</span></h2>
-        <div class="options">
-          <label><input type="radio" name="q1" value="Det føles let for mig" required> Det føles let for mig</label>
-          <label><input type="radio" name="q1" value="Det føles ok – noget er let, noget er svært"> Det føles ok – noget er let, noget er svært</label>
-          <label><input type="radio" name="q1" value="Det føles svært, men jeg vil gerne blive bedre"> Det føles svært, men jeg vil gerne blive bedre</label>
-          <label><input type="radio" name="q1" value="Det afhænger af, hvad vi arbejder med"> Det afhænger af, hvad vi arbejder med</label>
-        </div>
-      </section>
+      <label class="field">
+        <span>Din klasse</span>
+        <input type="text" id="className" value="4. klasse">
+      </label>
+    </div>
+  </header>
 
-      <!-- 2 -->
-      <section class="q">
-        <h2>🚀 2. Når vi starter på en ny opgave, vil jeg helst … <span class="meta">(sæt max 1 X)</span></h2>
-        <div class="options">
-          <label><input type="radio" name="q2" value="Starte med noget let og blive sikker" required> Starte med noget let og blive sikker</label>
-          <label><input type="radio" name="q2" value="Starte med noget svært og udfordre mig selv"> Starte med noget svært og udfordre mig selv</label>
-        </div>
-      </section>
+  <form id="survey" class="card">
 
-      <!-- 3 -->
-      <section class="q">
-        <h2>🔢 3. Jeg vil gerne blive bedre til … <span class="meta">(sæt gerne flere X)</span></h2>
-        <div class="options">
-          <label><input type="checkbox" name="q3" value="Plus og minus"> Plus og minus</label>
-          <label><input type="checkbox" name="q3" value="Gange"> Gange</label>
-          <label><input type="checkbox" name="q3" value="Division"> Division</label>
-          <label><input type="checkbox" name="q3" value="Brøker (pizza-, kage- og del-tal)"> Brøker (pizza-, kage- og del-tal 🍕)</label>
-          <label><input type="checkbox" name="q3" value="Måling (tid, penge, længde, vægt)"> Måling (tid, penge, længde, vægt)</label>
-          <label><input type="checkbox" name="q3" value="Problemer og gåder"> Problemer og gåder</label>
-          <label><input type="checkbox" name="q3" value="Matematik med historier og fantasi"> Matematik med historier og fantasi</label>
-        </div>
-      </section>
+    <!-- 1 -->
+    <section class="q">
+      <h2>🧠 1. Når jeg arbejder med matematik …</h2>
+      <label><input type="radio" name="q1" value="Det føles let for mig" required> Det føles let for mig</label>
+      <label><input type="radio" name="q1" value="Noget er let, noget er svært"> Noget er let, noget er svært</label>
+      <label><input type="radio" name="q1" value="Det føles svært, men jeg vil gerne blive bedre"> Det føles svært, men jeg vil gerne blive bedre</label>
+      <label><input type="radio" name="q1" value="Det afhænger af opgaven"> Det afhænger af opgaven</label>
+    </section>
 
-      <!-- 4 -->
-      <section class="q">
-        <h2>🎮 4. Matematik er sjovest for mig, når det handler om … <span class="meta">(sæt gerne flere X)</span></h2>
-        <div class="options">
-          <label><input type="checkbox" name="q4" value="Spil"> Spil</label>
-          <label><input type="checkbox" name="q4" value="Sport"> Sport</label>
-          <label><input type="checkbox" name="q4" value="Gaming"> Gaming</label>
-          <label><input type="checkbox" name="q4" value="Dyr"> Dyr</label>
-          <label><input type="checkbox" name="q4" value="Mad og butikker"> Mad og butikker</label>
-          <label><input type="checkbox" name="q4" value="Musik, dans eller TikTok"> Musik, dans eller TikTok</label>
-          <label><input type="checkbox" name="q4" value="Eventyr, fantasi og magi"> Eventyr, fantasi og magi</label>
-          <label><input type="checkbox" name="q4" value="Virkelige ting fra hverdagen"> Virkelige ting fra hverdagen</label>
-        </div>
-        <label class="field">
-          <span>Uddyb</span>
-          <input type="text" id="q4extra" placeholder="Skriv her…" />
-        </label>
-      </section>
+    <!-- 2 -->
+    <section class="q">
+      <h2>🚀 2. Når vi starter på en ny opgave, vil jeg helst …</h2>
+      <label><input type="radio" name="q2" value="Starte med noget let og blive sikker" required> Starte med noget let og blive sikker</label>
+      <label><input type="radio" name="q2" value="Starte med noget svært og udfordre mig selv"> Starte med noget svært og udfordre mig selv</label>
+    </section>
 
-      <!-- 5 -->
-      <section class="q">
-        <h2>🧩 5. Når jeg arbejder bedst, er det fordi … <span class="meta">(sæt max 2 X)</span></h2>
-        <p class="hint">Vælg højst 2.</p>
-        <div class="options" id="q5box">
-          <label><input type="checkbox" name="q5" value="Jeg kan arbejde i ro"> Jeg kan arbejde i ro</label>
-          <label><input type="checkbox" name="q5" value="Jeg kan tale med andre"> Jeg kan tale med andre</label>
-          <label><input type="checkbox" name="q5" value="Jeg kan bevæge mig lidt"> Jeg kan bevæge mig lidt</label>
-          <label><input type="checkbox" name="q5" value="Jeg kan skifte mellem opgaver"> Jeg kan skifte mellem opgaver</label>
-          <label><input type="checkbox" name="q5" value="Jeg ved præcis, hvad jeg skal"> Jeg ved præcis, hvad jeg skal</label>
-          <label><input type="checkbox" name="q5" value="Jeg selv må vælge noget"> Jeg selv må vælge noget</label>
-        </div>
-      </section>
+    <!-- 3 -->
+    <section class="q">
+      <h2>🔢 3. Jeg vil gerne blive bedre til …</h2>
+      <label><input type="checkbox" name="q3" value="Plus og minus"> Plus og minus</label>
+      <label><input type="checkbox" name="q3" value="Gange"> Gange</label>
+      <label><input type="checkbox" name="q3" value="Division"> Division</label>
+      <label><input type="checkbox" name="q3" value="Brøker"> Brøker</label>
+      <label><input type="checkbox" name="q3" value="Måling"> Måling</label>
+      <label><input type="checkbox" name="q3" value="Problemløsning"> Problemløsning</label>
+    </section>
 
-      <!-- 6 -->
-      <section class="q">
-        <h2>👥 6. Jeg arbejder bedst … <span class="meta">(sæt 1 X)</span></h2>
-        <div class="options">
-          <label><input type="radio" name="q6" value="Alene" required> Alene</label>
-          <label><input type="radio" name="q6" value="Sammen med én anden"> Sammen med én anden</label>
-          <label><input type="radio" name="q6" value="I en lille gruppe"> I en lille gruppe</label>
-          <label><input type="radio" name="q6" value="Forskelligt – det kommer an på opgaven"> Forskelligt – det kommer an på opgaven</label>
-        </div>
-      </section>
+    <!-- 4 -->
+    <section class="q">
+      <h2>🎮 4. Matematik er sjovest for mig, når det handler om …</h2>
+      <label><input type="checkbox" name="q4" value="Spil"> Spil</label>
+      <label><input type="checkbox" name="q4" value="Sport"> Sport</label>
+      <label><input type="checkbox" name="q4" value="Gaming"> Gaming</label>
+      <label><input type="checkbox" name="q4" value="Dyr"> Dyr</label>
+      <label><input type="checkbox" name="q4" value="Mad og butikker"> Mad og butikker</label>
+      <label><input type="checkbox" name="q4" value="Fantasi"> Fantasi</label>
+    </section>
 
-      <!-- 7 -->
-      <section class="q">
-        <h2>🛠️ 7. Når jeg skal lære noget nyt, hjælper det mig mest at … <span class="meta">(sæt max 2 X)</span></h2>
-        <p class="hint">Vælg højst 2.</p>
-        <div class="options" id="q7box">
-          <label><input type="checkbox" name="q7" value="Få det forklaret"> Få det forklaret</label>
-          <label><input type="checkbox" name="q7" value="Se et eksempel"> Se et eksempel</label>
-          <label><input type="checkbox" name="q7" value="Prøve selv"> Prøve selv</label>
-          <label><input type="checkbox" name="q7" value="Tale med andre om det"> Tale med andre om det</label>
-          <label><input type="checkbox" name="q7" value="Tegne eller skrive"> Tegne eller skrive</label>
-        </div>
-      </section>
+    <!-- 5 -->
+    <section class="q">
+      <h2>🧩 5. Jeg arbejder bedst, når …</h2>
+      <label><input type="checkbox" name="q5" value="Jeg kan arbejde i ro"> jeg kan arbejde i ro</label>
+      <label><input type="checkbox" name="q5" value="Jeg kan tale med andre"> jeg kan tale med andre</label>
+      <label><input type="checkbox" name="q5" value="Jeg kan bevæge mig lidt"> jeg kan bevæge mig lidt</label>
+      <label><input type="checkbox" name="q5" value="Jeg ved præcis hvad jeg skal"> jeg ved præcis hvad jeg skal</label>
+    </section>
 
-      <!-- 8 -->
-      <section class="q">
-        <h2>🧠 8. Når noget er svært, vil jeg helst … <span class="meta">(sæt 1 X)</span></h2>
-        <div class="options">
-          <label><input type="radio" name="q8" value="Kunne spørge lærerne" required> Kunne spørge lærerne</label>
-          <label><input type="radio" name="q8" value="Prøve selv først"> Prøve selv først</label>
-          <label><input type="radio" name="q8" value="Spørge en ven"> Spørge en ven</label>
-        </div>
-      </section>
+    <!-- 6 -->
+    <section class="q">
+      <h2>👥 6. Jeg arbejder bedst …</h2>
+      <label><input type="radio" name="q6" value="Alene" required> Alene</label>
+      <label><input type="radio" name="q6" value="Sammen med én anden"> Sammen med én anden</label>
+      <label><input type="radio" name="q6" value="I en lille gruppe"> I en lille gruppe</label>
+    </section>
 
-      <!-- 9 -->
-      <section class="q">
-        <h2>🎛️ 9. Når vi arbejder i matematik, vil jeg helst … <span class="meta">(sæt 1 X)</span></h2>
-        <div class="options">
-          <label><input type="radio" name="q9" value="Have faste opgaver" required> Have faste opgaver</label>
-          <label><input type="radio" name="q9" value="Kunne skifte mellem opgaver undervejs"> Kunne skifte mellem opgaver undervejs</label>
-        </div>
-      </section>
+    <!-- 7 -->
+    <section class="q">
+      <h2>🛠️ 7. Når jeg skal lære noget nyt, hjælper det mig mest at …</h2>
+      <label><input type="checkbox" name="q7" value="Få det forklaret"> Få det forklaret</label>
+      <label><input type="checkbox" name="q7" value="Se et eksempel"> Se et eksempel</label>
+      <label><input type="checkbox" name="q7" value="Prøve selv"> Prøve selv</label>
+      <label><input type="checkbox" name="q7" value="Tegne eller skrive"> Tegne eller skrive</label>
+    </section>
 
-      <!-- 10 -->
-      <section class="q">
-        <h2>🔄 10. Jeg kan godt lide at … <span class="meta">(sæt 1 X)</span></h2>
-        <div class="options">
-          <label><input type="radio" name="q10" value="Arbejde længe med én opgave" required> Arbejde længe med én opgave</label>
-          <label><input type="radio" name="q10" value="Arbejde med flere små opgaver"> Arbejde med flere små opgaver</label>
-        </div>
-      </section>
+    <!-- 8 -->
+    <section class="q">
+      <h2>🧠 8. Når noget er svært, vil jeg helst …</h2>
+      <label><input type="radio" name="q8" value="Have hjælp" required> Have hjælp</label>
+      <label><input type="radio" name="q8" value="Prøve selv først"> Prøve selv først</label>
+      <label><input type="radio" name="q8" value="Spørge en ven"> Spørge en ven</label>
+    </section>
 
-      <!-- 11 -->
-      <section class="q">
-        <h2>⭐ 11. Det gør mig stolt i skolen, når … <span class="meta">(sæt 1 X)</span></h2>
-        <div class="options">
-          <label><input type="radio" name="q11" value="Jeg forstår noget nyt" required> Jeg forstår noget nyt</label>
-          <label><input type="radio" name="q11" value="Jeg bliver bedre end før"> Jeg bliver bedre end før</label>
-          <label><input type="radio" name="q11" value="Jeg klarer en svær opgave"> Jeg klarer en svær opgave</label>
-        </div>
-      </section>
+    <!-- 9 -->
+    <section class="q">
+      <h2>🎛️ 9. Når vi arbejder i matematik, vil jeg helst …</h2>
+      <label><input type="radio" name="q9" value="Have faste opgaver" required> Have faste opgaver</label>
+      <label><input type="radio" name="q9" value="Kunne skifte mellem opgaver"> Kunne skifte mellem opgaver</label>
+    </section>
 
-      <!-- 12 -->
-      <section class="q">
-        <h2>🎒 12. Jeg vil gerne blive bedre til … <span class="meta">(sæt gerne flere X’er)</span></h2>
-        <div class="options">
-          <label><input type="checkbox" name="q12" value="At koncentrere mig"> At koncentrere mig</label>
-          <label><input type="checkbox" name="q12" value="At arbejde selv"> At arbejde selv</label>
-          <label><input type="checkbox" name="q12" value="At arbejde sammen med andre"> At arbejde sammen med andre</label>
-          <label><input type="checkbox" name="q12" value="At forklare mine tanker"> At forklare mine tanker</label>
-          <label><input type="checkbox" name="q12" value="At turde prøve svære ting"> At turde prøve svære ting</label>
-        </div>
-      </section>
+    <section class="q">
+      <button type="button" id="generate" class="btn">Lav ChatGPT-prompt</button>
+    </section>
 
-      <!-- 13 -->
-      <section class="q">
-        <h2>🌈 13. Hvis skolen var helt perfekt for mig, ville den … <span class="meta">(sæt gerne flere X’er)</span></h2>
-        <div class="options">
-          <label><input type="checkbox" name="q13" value="Have flere valg"> Have flere valg</label>
-          <label><input type="checkbox" name="q13" value="Have flere kreative opgaver"> Have flere kreative opgaver</label>
-          <label><input type="checkbox" name="q13" value="Have mere ro"> Have mere ro</label>
-          <label><input type="checkbox" name="q13" value="Have mere bevægelse"> Have mere bevægelse</label>
-          <label><input type="checkbox" name="q13" value="Have mere leg og fantasi"> Have mere leg og fantasi</label>
-          <label><input type="checkbox" name="q13" value="Have mere tid til fordybelse"> Have mere tid til fordybelse</label>
-        </div>
-      </section>
+    <section class="q">
+      <h2>📋 Klar-til-brug prompt</h2>
+      <textarea id="prompt" rows="18" readonly></textarea>
+      <button type="button" id="copy" class="btn secondary">Kopiér prompt</button>
+    </section>
 
-      <!-- 14 -->
-      <section class="q">
-        <h2>✍️ 14. Er der noget, vi som lærere skal vide om dig? <span class="meta">(frivilligt)</span></h2>
-        <textarea id="q14" rows="4" placeholder="Skriv her…"></textarea>
-      </section>
+  </form>
+</main>
 
-      <section class="q">
-        <h2>✅ Generér min ChatGPT-prompt</h2>
-        <p class="hint">
-          Tryk “Gem” for at lave en prompt, du kan kopiere direkte ind i ChatGPT for at få et personligt matematikforløb.
-        </p>
+<script>
+function getRadio(name){
+  const el = document.querySelector(`input[name="${name}"]:checked`);
+  return el ? el.value : "";
+}
 
-        <div class="actions">
-          <button type="button" class="btn" id="generate">💾 Gem (lav prompt)</button>
-          <button type="button" class="btn secondary" id="copy">📋 Kopiér prompt</button>
-          <button type="button" class="btn secondary" id="download">⬇️ Download prompt (.txt)</button>
-        </div>
+function getChecks(name){
+  return [...document.querySelectorAll(`input[name="${name}"]:checked`)].map(x => x.value);
+}
 
-        <label class="field">
-          <span>Din prompt (klar til ChatGPT)</span>
-          <textarea id="prompt" rows="14" readonly placeholder="Her kommer din prompt…"></textarea>
-        </label>
+function buildPrompt(){
+  const p = `
+Du skal KUN producere et færdigt matematikforløb klar til print.
 
-        <p class="small" id="status"></p>
-      </section>
+INGEN forklaringer.
+INGEN kommentarer.
+INGEN introduktion.
+INGEN afrunding.
+KUN matematikopgaver.
 
-    </form>
-  </main>
+FORMAT:
+- Printklart elevark.
+- 45 minutters arbejde.
+- 4. klasse.
+- Elevsprog.
+- Tydelig differentiering: Basis / Plus / Challenge.
+- Tomme linjer til svar.
 
-  <script>
-    // --- Utility helpers ---
-    const $ = (sel) => document.querySelector(sel);
-    const $$ = (sel) => Array.from(document.querySelectorAll(sel));
+ELEVPROFIL:
+Navn: ${document.getElementById("name").value}
+Klasse: ${document.getElementById("className").value}
 
-    function radioValue(name){
-      const el = document.querySelector(`input[name="${name}"]:checked`);
-      return el ? el.value : "";
-    }
+Elevens matematikoplevelse:
+${getRadio("q1")}
 
-    function checkboxValues(name){
-      return $$(`input[name="${name}"]:checked`).map(x => x.value);
-    }
+Startpræference:
+${getRadio("q2")}
 
-    function limitCheckboxGroup(containerId, max){
-      const box = document.getElementById(containerId);
-      box.addEventListener("change", () => {
-        const checked = box.querySelectorAll('input[type="checkbox"]:checked');
-        if(checked.length > max){
-          // uncheck the last changed one
-          const last = box.querySelector('input[type="checkbox"]:focus');
-          if(last) last.checked = false;
-          // fallback: uncheck the newest by DOM order
-          else checked[checked.length - 1].checked = false;
-          showStatus(`Du må kun vælge ${max} her 🙂`, true);
-        }
-      });
-    }
+Faglige fokusområder:
+${getChecks("q3").join(", ")}
 
-    function showStatus(msg, warn=false){
-      const s = $("#status");
-      s.textContent = msg;
-      s.className = "small" + (warn ? " warn" : "");
-      if(msg) setTimeout(()=>{ s.textContent=""; s.className="small"; }, 2500);
-    }
+Interesser/temaer:
+${getChecks("q4").join(", ")}
 
-    // Apply max-2 limits from the doc
-    limitCheckboxGroup("q5box", 2);
-    limitCheckboxGroup("q7box", 2);
+Arbejdsvilkår:
+${getChecks("q5").join(", ")}
 
-    function buildPrompt(data){
-      // A “directly usable” prompt for ChatGPT that asks for a personal math course
-      return `Du er en dansk matematiklærer for 4. klasse og didaktisk designer. 
-Design et PERSONLIGT matematikforløb til eleven ud fra elevens besvarelse.
+Social præference:
+${getRadio("q6")}
 
-KRAV:
-- Forløbet skal være differentieret og realistisk for en 4. klasse med stor niveauspredning.
-- Lav et 2-ugers forløb med 6 lektioner á 45 minutter (kan skaleres).
-- Hver lektion skal have: mål i elevsprog, kort lærervejledning, aktivitet/arbejdsform, 3 differentierede opgaver (Basis / Plus / Challenge), og en hurtig afslutning (exit ticket).
-- Brug elevens interesser/temaer aktivt i opgavekontekster.
-- Respektér elevens præferencer for ro/samarbejde/bevægelse/valg og læringsstrategier.
-- Ingen lange forklaringer til læreren – gør det plug-and-play.
+Læringsstrategier:
+${getChecks("q7").join(", ")}
 
-ELEVINFO:
-Navn: ${data.name || "—"}
-Klasse: ${data.className || "—"}
+Når noget er svært:
+${getRadio("q8")}
 
-SPØRGESKEMA-SVAR:
-1) Når jeg arbejder med matematik: ${data.q1 || "—"}
-2) Når vi starter ny opgave: ${data.q2 || "—"}
-3) Jeg vil gerne blive bedre til: ${data.q3.length ? data.q3.join(", ") : "—"}
-4) Sjovest når det handler om: ${data.q4.length ? data.q4.join(", ") : "—"}${data.q4extra ? " (Uddyb: " + data.q4extra + ")" : ""}
-5) Jeg arbejder bedst fordi: ${data.q5.length ? data.q5.join(", ") : "—"}
-6) Jeg arbejder bedst: ${data.q6 || "—"}
-7) Når jeg skal lære noget nyt hjælper det mest at: ${data.q7.length ? data.q7.join(", ") : "—"}
-8) Når noget er svært vil jeg helst: ${data.q8 || "—"}
-9) I matematik vil jeg helst: ${data.q9 || "—"}
-10) Jeg kan godt lide at: ${data.q10 || "—"}
-11) Det gør mig stolt når: ${data.q11 || "—"}
-12) Jeg vil gerne blive bedre til: ${data.q12.length ? data.q12.join(", ") : "—"}
-13) Perfekt skole ville have: ${data.q13.length ? data.q13.join(", ") : "—"}
-14) Lærerne skal vide: ${data.q14 || "—"}
+Strukturpræference:
+${getRadio("q9")}
 
-OUTPUTFORMAT:
-- Start med en ultrakort profil (5 linjer).
-- Derefter “Forløbsoverblik” (lektion 1-6).
-- Derefter hver lektion udfoldet.
-- Slut med 5 konkrete tips til, hvordan læreren holder styring uden at fjerne elevens selvbestemmelse.`;
-    }
+START OUTPUT NU.
+`;
+  document.getElementById("prompt").value = p.trim();
+}
 
-    function collectData(){
-      const data = {
-        name: $("#name").value.trim(),
-        className: $("#class").value.trim(),
-        q1: radioValue("q1"),
-        q2: radioValue("q2"),
-        q3: checkboxValues("q3"),
-        q4: checkboxValues("q4"),
-        q4extra: $("#q4extra").value.trim(),
-        q5: checkboxValues("q5"),
-        q6: radioValue("q6"),
-        q7: checkboxValues("q7"),
-        q8: radioValue("q8"),
-        q9: radioValue("q9"),
-        q10: radioValue("q10"),
-        q11: radioValue("q11"),
-        q12: checkboxValues("q12"),
-        q13: checkboxValues("q13"),
-        q14: $("#q14").value.trim(),
-        timestamp: new Date().toISOString()
-      };
-      return data;
-    }
+document.getElementById("generate").onclick = buildPrompt;
 
-    function downloadText(filename, text){
-      const blob = new Blob([text], {type: "text/plain;charset=utf-8"});
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      URL.revokeObjectURL(url);
-    }
+document.getElementById("copy").onclick = () => {
+  navigator.clipboard.writeText(document.getElementById("prompt").value);
+  alert("Prompt kopieret 👍");
+};
+</script>
 
-    // --- Buttons ---
-    $("#generate").addEventListener("click", () => {
-      // quick validity check for required radios
-      const requiredNames = ["q1","q2","q6","q8","q9","q10","q11"];
-      const missing = requiredNames.filter(n => !radioValue(n));
-      if(missing.length){
-        showStatus("Husk at svare på alle spørgsmål med (sæt 1 X) 🙂", true);
-        return;
-      }
-
-      const data = collectData();
-      const prompt = buildPrompt(data);
-      $("#prompt").value = prompt;
-      showStatus("Prompten er klar ✅");
-      // store locally in case they refresh
-      localStorage.setItem("survey_prompt_last", prompt);
-    });
-
-    $("#copy").addEventListener("click", async () => {
-      const p = $("#prompt").value.trim();
-      if(!p){ showStatus("Tryk først “Gem (lav prompt)” 🙂", true); return; }
-      try{
-        await navigator.clipboard.writeText(p);
-        showStatus("Kopieret til udklipsholder ✅");
-      }catch(e){
-        showStatus("Kunne ikke kopiere. Markér teksten og kopier manuelt.", true);
-      }
-    });
-
-    $("#download").addEventListener("click", () => {
-      const p = $("#prompt").value.trim();
-      if(!p){ showStatus("Tryk først “Gem (lav prompt)” 🙂", true); return; }
-      const safeName = ($("#name").value.trim() || "elev").replace(/[^\w\-]+/g, "_");
-      downloadText(`ChatGPT_prompt_${safeName}.txt`, p);
-      showStatus("Downloadet ✅");
-    });
-
-    // Restore if exists
-    const last = localStorage.getItem("survey_prompt_last");
-    if(last) $("#prompt").value = last;
-  </script>
 </body>
 </html>
