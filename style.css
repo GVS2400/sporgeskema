@@ -1,0 +1,160 @@
+:root{
+  --bg:#f6f6f7;
+  --card:#ffffff;
+  --text:#111827;
+  --muted:#6b7280;
+  --line:#e5e7eb;
+  --accent:#111827;
+  --radius:16px;
+}
+
+*{ box-sizing:border-box; }
+
+body{
+  margin:0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+
+.wrap{
+  max-width: 920px;
+  margin: 24px auto;
+  padding: 0 16px 40px;
+}
+
+.card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding: 18px;
+  box-shadow: 0 1px 0 rgba(0,0,0,.02);
+  margin-bottom: 16px;
+}
+
+h1{
+  margin:0 0 6px;
+  font-size: 28px;
+}
+
+.lead{
+  margin:0 0 10px;
+  color:var(--muted);
+}
+
+.rules{
+  margin: 0;
+  padding-left: 18px;
+  color:var(--muted);
+  line-height: 1.45;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:12px;
+  margin-top: 14px;
+}
+@media (max-width:720px){
+  .grid{ grid-template-columns:1fr; }
+}
+
+.field span{
+  display:block;
+  font-size: 13px;
+  color:var(--muted);
+  margin: 10px 0 6px;
+}
+
+.field input, textarea{
+  width:100%;
+  border:1px solid var(--line);
+  border-radius: 12px;
+  padding: 10px 12px;
+  font-size: 16px;
+  outline: none;
+}
+
+textarea{ resize: vertical; }
+
+.q{
+  border-top:1px solid var(--line);
+  padding-top: 14px;
+  margin-top: 14px;
+}
+.q:first-of-type{
+  border-top:none;
+  padding-top:0;
+  margin-top:0;
+}
+
+h2{
+  margin: 0 0 8px;
+  font-size: 18px;
+}
+
+.meta{
+  color: var(--muted);
+  font-weight: 500;
+  font-size: 13px;
+}
+
+.hint{
+  margin: 0 0 10px;
+  color:var(--muted);
+  font-size: 14px;
+}
+
+.options{
+  display:grid;
+  gap:8px;
+}
+
+.options label{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+}
+
+.options input{
+  margin-top: 2px;
+  transform: scale(1.15);
+}
+
+.actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  align-items:center;
+  margin: 10px 0 6px;
+}
+
+.btn{
+  border:1px solid var(--accent);
+  background: var(--accent);
+  color:#fff;
+  padding: 10px 14px;
+  border-radius: 999px;
+  font-size: 15px;
+  cursor:pointer;
+}
+
+.btn.secondary{
+  background: transparent;
+  color: var(--accent);
+}
+
+.small{
+  margin: 6px 0 0;
+  color:var(--muted);
+  font-size: 13px;
+}
+
+.small.warn{
+  color:#b91c1c;
+  font-weight: 600;
+}
