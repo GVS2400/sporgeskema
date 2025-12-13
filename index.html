@@ -4,91 +4,128 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>4.Y – Min måde at lære på (Matematik)</title>
+
   <style>
     :root{
-      --bg:#0b0f14;
-      --card:#111827;
-      --card2:#0f172a;
-      --text:#e5e7eb;
-      --muted:#9ca3af;
-      --line:#243244;
+      --bg1:#fff7ed;      /* varm creme */
+      --bg2:#eff6ff;      /* lys blå */
+      --ink:#0f172a;      /* mørk tekst */
+      --muted:#475569;    /* sekundær tekst */
+      --card:#ffffff;
+      --line:#e2e8f0;
       --accent:#22c55e;
-      --accent2:#38bdf8;
-      --warn:#f59e0b;
-      --radius:18px;
-      --shadow: 0 10px 30px rgba(0,0,0,.35);
-      --max: 920px;
+      --accent2:#3b82f6;
+      --accent3:#f59e0b;
+      --radius:22px;
+      --shadow: 0 10px 25px rgba(15, 23, 42, .10);
+      --max: 980px;
+      --tap: 52px; /* minimum tryk-højde */
     }
+
     *{box-sizing:border-box}
     body{
       margin:0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      background: radial-gradient(1000px 800px at 20% 0%, rgba(56,189,248,.14), transparent 60%),
-                  radial-gradient(1000px 800px at 80% 10%, rgba(34,197,94,.12), transparent 60%),
-                  var(--bg);
-      color:var(--text);
-      line-height:1.35;
+      color:var(--ink);
+      background:
+        radial-gradient(900px 600px at 20% 10%, rgba(34,197,94,.18), transparent 55%),
+        radial-gradient(900px 600px at 90% 20%, rgba(59,130,246,.18), transparent 55%),
+        linear-gradient(180deg, var(--bg1), var(--bg2));
     }
+
     header{
-      padding:28px 18px 10px;
       max-width:var(--max);
       margin:0 auto;
+      padding:18px 14px 8px;
     }
-    .title{
-      display:flex; gap:12px; align-items:flex-start; flex-wrap:wrap;
+
+    .hero{
+      background: linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,.65));
+      border:1px solid rgba(226,232,240,.9);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      padding:16px 16px;
+      display:flex;
+      gap:14px;
+      align-items:flex-start;
+      flex-wrap:wrap;
     }
+
     h1{
       margin:0;
-      font-size:clamp(20px, 3.2vw, 30px);
+      font-size: clamp(22px, 3.3vw, 34px);
       letter-spacing:.2px;
     }
-    .badge{
-      display:inline-flex; align-items:center; gap:8px;
-      padding:7px 11px;
-      border:1px solid rgba(255,255,255,.12);
-      border-radius:999px;
-      background: rgba(17,24,39,.6);
+
+    .lead{
+      margin:6px 0 0;
       color:var(--muted);
-      font-size:13px;
+      font-size: 15px;
+      line-height:1.35;
     }
-    .wrap{
+
+    .pillRow{
+      margin-top:10px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:9px 11px;
+      border-radius: 999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.8);
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    main{
       max-width:var(--max);
       margin:0 auto;
-      padding:0 18px 28px;
+      padding: 10px 14px 22px;
       display:grid;
       grid-template-columns: 1fr;
       gap:14px;
     }
+
     .card{
-      background: linear-gradient(180deg, rgba(17,24,39,.92), rgba(15,23,42,.92));
-      border:1px solid rgba(255,255,255,.10);
-      border-radius:var(--radius);
+      background: var(--card);
+      border:1px solid var(--line);
+      border-radius: var(--radius);
       box-shadow: var(--shadow);
       overflow:hidden;
     }
+
     .cardHead{
-      padding:16px 16px 0;
+      padding:14px 14px 0;
     }
+
     .cardTitle{
-      margin:0 0 10px;
-      font-size:18px;
+      margin:0;
       display:flex;
       align-items:center;
       gap:10px;
+      font-size: 18px;
     }
+
     .sub{
-      margin:0 0 16px;
-      color:var(--muted);
-      font-size:14px;
+      margin:8px 0 12px;
+      color: var(--muted);
+      font-size: 14px;
     }
-    .content{
-      padding: 0 16px 16px;
-    }
+
+    .content{ padding: 0 14px 14px; }
+
     .q{
-      padding:14px 16px;
-      border-top:1px solid rgba(255,255,255,.08);
+      border-top:1px solid var(--line);
+      padding:14px 0;
     }
-    .q:first-child{border-top:0}
+    .q:first-child{ border-top:0; }
+
     .qTop{
       display:flex;
       gap:10px;
@@ -96,408 +133,438 @@
       justify-content:space-between;
       flex-wrap:wrap;
     }
+
     .qNum{
-      font-weight:800;
-      color: rgba(56,189,248,.95);
-      min-width: 28px;
+      font-weight:900;
+      min-width: 40px;
+      height: 40px;
+      border-radius: 14px;
+      display:grid;
+      place-items:center;
+      background: rgba(59,130,246,.12);
+      color: var(--accent2);
     }
+
     .qText{
       flex:1;
-      font-weight:700;
-      font-size:15px;
+      font-weight:900;
+      font-size: 16px;
     }
+
     .qRule{
-      font-size:12px;
-      color:var(--muted);
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.04);
-      padding:5px 9px;
-      border-radius:999px;
+      font-size: 12px;
+      color: var(--muted);
+      background: rgba(245,158,11,.14);
+      border: 1px solid rgba(245,158,11,.25);
+      padding: 7px 10px;
+      border-radius: 999px;
       white-space:nowrap;
     }
+
     .options{
       margin-top:10px;
       display:flex;
-      flex-direction:column;
-      gap:8px; /* <- “under hinanden” */
+      flex-direction:column; /* <- under hinanden */
+      gap:10px;
     }
+
     label.opt{
       display:flex;
+      gap:12px;
       align-items:flex-start;
-      gap:10px;
-      padding:10px 12px;
-      border-radius:14px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
+      padding: 12px 12px;
+      border-radius: 18px;
+      border:1px solid var(--line);
+      background: rgba(248,250,252,.9);
       cursor:pointer;
-      user-select:none;
+      min-height: var(--tap);
+      transition: transform .04s ease, box-shadow .12s ease, border-color .12s ease;
     }
     label.opt:hover{
-      border-color: rgba(56,189,248,.35);
-      background: rgba(56,189,248,.07);
+      border-color: rgba(59,130,246,.35);
+      box-shadow: 0 8px 18px rgba(59,130,246,.10);
     }
+    label.opt:active{
+      transform: scale(.99);
+    }
+
+    .optText{
+      font-size: 15px;
+      font-weight: 700;
+    }
+
     input[type="radio"], input[type="checkbox"]{
-      margin-top:3px;
-      transform: scale(1.2);
+      margin-top: 4px;
+      transform: scale(1.25);
       accent-color: var(--accent2);
     }
+
     .inline{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap:10px;
       margin-top:10px;
-    }
-    .fieldRow{
       display:grid;
-      grid-template-columns: 1fr;
-      gap:8px;
-    }
-    .fieldRow.two{
-      grid-template-columns: 1fr 1fr;
       gap:10px;
     }
+
+    .row2{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:10px;
+    }
+
     .field{
       width:100%;
-      padding:11px 12px;
-      border-radius:14px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.18);
-      color: var(--text);
+      padding: 12px 12px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: white;
+      font-size: 15px;
       outline:none;
+      min-height: var(--tap);
     }
     .field:focus{
-      border-color: rgba(34,197,94,.45);
-      box-shadow: 0 0 0 3px rgba(34,197,94,.12);
+      border-color: rgba(34,197,94,.5);
+      box-shadow: 0 0 0 4px rgba(34,197,94,.15);
     }
+
     .actions{
       display:flex;
       flex-wrap:wrap;
       gap:10px;
-      padding: 14px 16px 16px;
-      border-top:1px solid rgba(255,255,255,.08);
       align-items:center;
       justify-content:space-between;
-      background: rgba(0,0,0,.15);
+      padding: 12px 14px 14px;
+      border-top: 1px solid var(--line);
+      background: rgba(248,250,252,.8);
     }
+
     .btns{
       display:flex;
       gap:10px;
       flex-wrap:wrap;
     }
+
     button{
       border:0;
       cursor:pointer;
-      border-radius:14px;
-      padding:10px 13px;
-      font-weight:800;
-      letter-spacing:.2px;
-      color:#061016;
-      background: linear-gradient(180deg, rgba(34,197,94,.95), rgba(34,197,94,.75));
+      border-radius: 16px;
+      padding: 12px 14px;
+      font-weight: 900;
+      font-size: 14px;
+      min-height: var(--tap);
     }
-    button.secondary{
-      background: linear-gradient(180deg, rgba(56,189,248,.95), rgba(56,189,248,.75));
+
+    .primary{
+      color:white;
+      background: linear-gradient(180deg, rgba(34,197,94,.95), rgba(34,197,94,.8));
+      box-shadow: 0 10px 18px rgba(34,197,94,.18);
     }
-    button.ghost{
-      color: var(--text);
-      background: rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.12);
-      font-weight:700;
+
+    .secondary{
+      color:white;
+      background: linear-gradient(180deg, rgba(59,130,246,.95), rgba(59,130,246,.80));
+      box-shadow: 0 10px 18px rgba(59,130,246,.18);
     }
+
+    .ghost{
+      background: white;
+      border: 1px solid var(--line);
+      color: var(--ink);
+      font-weight: 800;
+    }
+
     .hint{
-      font-size:13px;
-      color:var(--muted);
+      color: var(--muted);
+      font-size: 13px;
       display:flex;
-      gap:8px;
       align-items:center;
+      gap:8px;
     }
-    .promptCard{
-      margin-top:14px;
-    }
+
     textarea{
       width:100%;
-      min-height: 260px;
-      padding:12px 12px;
-      border-radius:14px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.20);
-      color: var(--text);
+      min-height: 280px;
+      padding: 12px 12px;
+      border-radius: 18px;
+      border:1px solid var(--line);
+      background: #0b1220;
+      color: #e5e7eb;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 12.8px;
+      line-height: 1.4;
       outline:none;
       resize: vertical;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      font-size:12.8px;
-      line-height:1.35;
     }
-    .small{
-      font-size:12px;
-      color:var(--muted);
-      margin:8px 0 0;
+
+    .note{
+      margin:10px 0 0;
+      font-size: 13px;
+      color: var(--muted);
     }
+
     .toast{
-      display:none;
       position: fixed;
-      inset: auto 16px 16px auto;
-      background: rgba(17,24,39,.95);
-      border:1px solid rgba(255,255,255,.12);
-      padding:10px 12px;
-      border-radius:14px;
-      color: var(--text);
+      right: 14px;
+      bottom: 14px;
+      background: rgba(15,23,42,.95);
+      color: white;
+      padding: 10px 12px;
+      border-radius: 16px;
       box-shadow: var(--shadow);
+      border: 1px solid rgba(255,255,255,.12);
+      display:none;
       max-width: 340px;
-      font-size:13px;
+      font-size: 13px;
     }
-    .toast.show{display:block}
+    .toast.show{ display:block; }
+
     @media (min-width: 980px){
-      .wrap{grid-template-columns: 1.1fr .9fr; align-items:start;}
-      .promptCard{margin-top:0}
-      .fieldRow.two{grid-template-columns: 1fr 1fr;}
+      main{ grid-template-columns: 1.05fr .95fr; align-items:start; }
+      .row2{ grid-template-columns: 1fr 1fr; }
     }
   </style>
 </head>
+
 <body>
   <header>
-    <div class="title">
-      <h1>4.Y – Min måde at lære på (Matematik)</h1>
-      <span class="badge">Svarene laver en ChatGPT-prompt til et personligt 2×45 min forløb</span>
+    <div class="hero">
+      <div style="flex:1; min-width:260px;">
+        <h1>🌈 Min måde at lære på – Matematik (4.Y)</h1>
+        <p class="lead">Sæt kryds – der er ingen rigtige eller forkerte svar. Når du er færdig, kan du lave en tekst, der kan sættes direkte ind i ChatGPT.</p>
+        <div class="pillRow">
+          <span class="pill">✅ Svar står under hinanden</span>
+          <span class="pill">🧠 Hjælper os med bedre matematik</span>
+          <span class="pill">📄 Kan downloades som .txt</span>
+        </div>
+      </div>
+      <div style="min-width:220px; display:grid; gap:10px;">
+        <input class="field" id="studentName" placeholder="✍️ Navn" autocomplete="off" />
+        <input class="field" id="studentClass" placeholder="🏫 Klasse (fx 4Y)" autocomplete="off" />
+      </div>
     </div>
   </header>
 
-  <main class="wrap">
-    <!-- FORM -->
+  <main>
+    <!-- FORM CARD -->
     <section class="card" aria-label="Spørgeskema">
       <div class="cardHead">
-        <p class="sub">Sæt kryds. Du må gerne vælge flere steder, hvor der står det.</p>
+        <h2 class="cardTitle">🧩 Spørgeskema</h2>
+        <p class="sub">Vælg det der passer bedst. Nogle spørgsmål har “max 2”.</p>
       </div>
 
       <form id="survey" class="content">
-        <div class="q">
-          <div class="qTop">
-            <div class="qNum">0</div>
-            <div class="qText">Elevinfo</div>
-          </div>
-          <div class="inline">
-            <div class="fieldRow two">
-              <input class="field" id="studentName" name="studentName" placeholder="Navn (fx Anders)" autocomplete="off" />
-              <input class="field" id="studentClass" name="studentClass" placeholder="Klasse (fx 4Y)" autocomplete="off" />
-            </div>
-          </div>
-        </div>
 
-        <!-- Q1 -->
+        <!-- 1 -->
         <div class="q">
           <div class="qTop">
             <div class="qNum">1</div>
-            <div class="qText">Når jeg arbejder med matematik …</div>
+            <div class="qText">🧠 Når jeg arbejder med matematik …</div>
             <div class="qRule">max 1</div>
           </div>
           <div class="options" role="radiogroup" aria-label="Q1">
-            <label class="opt"><input type="radio" name="q1" value="Det føles let for mig"> Det føles let for mig</label>
-            <label class="opt"><input type="radio" name="q1" value="Det føles ok – noget er let, noget er svært"> Det føles ok – noget er let, noget er svært</label>
-            <label class="opt"><input type="radio" name="q1" value="Det føles svært, men jeg vil gerne blive bedre"> Det føles svært, men jeg vil gerne blive bedre</label>
-            <label class="opt"><input type="radio" name="q1" value="Det afhænger af, hvad vi arbejder med"> Det afhænger af, hvad vi arbejder med</label>
+            <label class="opt"><input type="radio" name="q1" value="Det føles let for mig"><span class="optText">Det føles let for mig</span></label>
+            <label class="opt"><input type="radio" name="q1" value="Det føles ok – noget er let, noget er svært"><span class="optText">Det føles ok – noget er let, noget er svært</span></label>
+            <label class="opt"><input type="radio" name="q1" value="Det føles svært, men jeg vil gerne blive bedre"><span class="optText">Det føles svært, men jeg vil gerne blive bedre</span></label>
+            <label class="opt"><input type="radio" name="q1" value="Det afhænger af, hvad vi arbejder med"><span class="optText">Det afhænger af, hvad vi arbejder med</span></label>
           </div>
         </div>
 
-        <!-- Q2 -->
+        <!-- 2 -->
         <div class="q">
           <div class="qTop">
             <div class="qNum">2</div>
-            <div class="qText">Når vi starter på en ny opgave, vil jeg helst …</div>
+            <div class="qText">🚀 Når vi starter på en ny opgave, vil jeg helst …</div>
             <div class="qRule">max 1</div>
           </div>
           <div class="options" role="radiogroup" aria-label="Q2">
-            <label class="opt"><input type="radio" name="q2" value="Starte med noget let og blive sikker"> Starte med noget let og blive sikker</label>
-            <label class="opt"><input type="radio" name="q2" value="Starte med noget svært og udfordre mig selv"> Starte med noget svært og udfordre mig selv</label>
+            <label class="opt"><input type="radio" name="q2" value="Starte med noget let og blive sikker"><span class="optText">Starte med noget let og blive sikker</span></label>
+            <label class="opt"><input type="radio" name="q2" value="Starte med noget svært og udfordre mig selv"><span class="optText">Starte med noget svært og udfordre mig selv</span></label>
           </div>
         </div>
 
-        <!-- Q3 -->
+        <!-- 3 -->
         <div class="q">
           <div class="qTop">
             <div class="qNum">3</div>
-            <div class="qText">Jeg vil gerne blive bedre til …</div>
+            <div class="qText">🔢 Jeg vil gerne blive bedre til …</div>
             <div class="qRule">flere</div>
           </div>
           <div class="options" aria-label="Q3">
-            <label class="opt"><input type="checkbox" name="q3" value="Plus og minus"> Plus og minus</label>
-            <label class="opt"><input type="checkbox" name="q3" value="Gange"> Gange</label>
-            <label class="opt"><input type="checkbox" name="q3" value="Division"> Division</label>
-            <label class="opt"><input type="checkbox" name="q3" value="Brøker (pizza-, kage- og del-tal)"> Brøker (pizza-, kage- og del-tal 🍕)</label>
-            <label class="opt"><input type="checkbox" name="q3" value="Måling (tid, penge, længde, vægt)"> Måling (tid, penge, længde, vægt)</label>
-            <label class="opt"><input type="checkbox" name="q3" value="Problemer og gåder"> Problemer og gåder</label>
-            <label class="opt"><input type="checkbox" name="q3" value="Matematik med historier og fantasi"> Matematik med historier og fantasi</label>
+            <label class="opt"><input type="checkbox" name="q3" value="Plus og minus"><span class="optText">Plus og minus</span></label>
+            <label class="opt"><input type="checkbox" name="q3" value="Gange"><span class="optText">Gange</span></label>
+            <label class="opt"><input type="checkbox" name="q3" value="Division"><span class="optText">Division</span></label>
+            <label class="opt"><input type="checkbox" name="q3" value="Brøker (pizza-, kage- og del-tal)"><span class="optText">Brøker (pizza-, kage- og del-tal 🍕)</span></label>
+            <label class="opt"><input type="checkbox" name="q3" value="Måling (tid, penge, længde, vægt)"><span class="optText">Måling (tid, penge, længde, vægt)</span></label>
+            <label class="opt"><input type="checkbox" name="q3" value="Problemer og gåder"><span class="optText">Problemer og gåder</span></label>
+            <label class="opt"><input type="checkbox" name="q3" value="Matematik med historier og fantasi"><span class="optText">Matematik med historier og fantasi</span></label>
           </div>
         </div>
 
-        <!-- Q4 -->
+        <!-- 4 -->
         <div class="q">
           <div class="qTop">
             <div class="qNum">4</div>
-            <div class="qText">Matematik er sjovest for mig, når det handler om …</div>
+            <div class="qText">🎮 Matematik er sjovest for mig, når det handler om …</div>
             <div class="qRule">flere</div>
           </div>
           <div class="options" aria-label="Q4">
-            <label class="opt"><input type="checkbox" name="q4" value="Spil"> Spil</label>
-            <label class="opt"><input type="checkbox" name="q4" value="Sport"> Sport</label>
-            <label class="opt"><input type="checkbox" name="q4" value="Gaming"> Gaming</label>
-            <label class="opt"><input type="checkbox" name="q4" value="Dyr"> Dyr</label>
-            <label class="opt"><input type="checkbox" name="q4" value="Mad og butikker"> Mad og butikker</label>
-            <label class="opt"><input type="checkbox" name="q4" value="Musik, dans eller TikTok"> Musik, dans eller TikTok</label>
-            <label class="opt"><input type="checkbox" name="q4" value="Eventyr, fantasi og magi"> Eventyr, fantasi og magi</label>
-            <label class="opt"><input type="checkbox" name="q4" value="Virkelige ting fra hverdagen"> Virkelige ting fra hverdagen</label>
+            <label class="opt"><input type="checkbox" name="q4" value="Spil"><span class="optText">Spil</span></label>
+            <label class="opt"><input type="checkbox" name="q4" value="Sport"><span class="optText">Sport</span></label>
+            <label class="opt"><input type="checkbox" name="q4" value="Gaming"><span class="optText">Gaming</span></label>
+            <label class="opt"><input type="checkbox" name="q4" value="Dyr"><span class="optText">Dyr</span></label>
+            <label class="opt"><input type="checkbox" name="q4" value="Mad og butikker"><span class="optText">Mad og butikker</span></label>
+            <label class="opt"><input type="checkbox" name="q4" value="Musik, dans eller TikTok"><span class="optText">Musik, dans eller TikTok</span></label>
+            <label class="opt"><input type="checkbox" name="q4" value="Eventyr, fantasi og magi"><span class="optText">Eventyr, fantasi og magi</span></label>
+            <label class="opt"><input type="checkbox" name="q4" value="Virkelige ting fra hverdagen"><span class="optText">Virkelige ting fra hverdagen</span></label>
           </div>
           <div class="inline">
-            <div class="fieldRow">
-              <input class="field" id="q4other" name="q4other" placeholder="Uddyb (valgfrit) …" autocomplete="off" />
-            </div>
+            <input class="field" id="q4other" placeholder="✍️ Uddyb (valgfrit) …" autocomplete="off" />
           </div>
         </div>
 
-        <!-- Q5 -->
+        <!-- 5 -->
         <div class="q">
           <div class="qTop">
             <div class="qNum">5</div>
-            <div class="qText">Når jeg arbejder bedst, er det fordi …</div>
+            <div class="qText">🧩 Når jeg arbejder bedst, er det fordi …</div>
             <div class="qRule">max 2</div>
           </div>
           <div class="options" aria-label="Q5">
-            <label class="opt"><input type="checkbox" name="q5" value="Jeg kan arbejde i ro"> Jeg kan arbejde i ro</label>
-            <label class="opt"><input type="checkbox" name="q5" value="Jeg kan tale med andre"> Jeg kan tale med andre</label>
-            <label class="opt"><input type="checkbox" name="q5" value="Jeg kan bevæge mig lidt"> Jeg kan bevæge mig lidt</label>
-            <label class="opt"><input type="checkbox" name="q5" value="Jeg kan skifte mellem opgaver"> Jeg kan skifte mellem opgaver</label>
-            <label class="opt"><input type="checkbox" name="q5" value="Jeg ved præcis, hvad jeg skal"> Jeg ved præcis, hvad jeg skal</label>
-            <label class="opt"><input type="checkbox" name="q5" value="Jeg selv må vælge noget"> Jeg selv må vælge noget</label>
+            <label class="opt"><input type="checkbox" name="q5" value="Jeg kan arbejde i ro"><span class="optText">Jeg kan arbejde i ro</span></label>
+            <label class="opt"><input type="checkbox" name="q5" value="Jeg kan tale med andre"><span class="optText">Jeg kan tale med andre</span></label>
+            <label class="opt"><input type="checkbox" name="q5" value="Jeg kan bevæge mig lidt"><span class="optText">Jeg kan bevæge mig lidt</span></label>
+            <label class="opt"><input type="checkbox" name="q5" value="Jeg kan skifte mellem opgaver"><span class="optText">Jeg kan skifte mellem opgaver</span></label>
+            <label class="opt"><input type="checkbox" name="q5" value="Jeg ved præcis, hvad jeg skal"><span class="optText">Jeg ved præcis, hvad jeg skal</span></label>
+            <label class="opt"><input type="checkbox" name="q5" value="Jeg selv må vælge noget"><span class="optText">Jeg selv må vælge noget</span></label>
           </div>
         </div>
 
-        <!-- Q6 -->
+        <!-- 6 -->
         <div class="q">
           <div class="qTop">
             <div class="qNum">6</div>
-            <div class="qText">Jeg arbejder bedst …</div>
+            <div class="qText">👥 Jeg arbejder bedst …</div>
             <div class="qRule">max 1</div>
           </div>
           <div class="options" role="radiogroup" aria-label="Q6">
-            <label class="opt"><input type="radio" name="q6" value="Alene"> Alene</label>
-            <label class="opt"><input type="radio" name="q6" value="Sammen med én anden"> Sammen med én anden</label>
-            <label class="opt"><input type="radio" name="q6" value="I en lille gruppe"> I en lille gruppe</label>
-            <label class="opt"><input type="radio" name="q6" value="Forskelligt – det kommer an på opgaven"> Forskelligt – det kommer an på opgaven</label>
+            <label class="opt"><input type="radio" name="q6" value="Alene"><span class="optText">Alene</span></label>
+            <label class="opt"><input type="radio" name="q6" value="Sammen med én anden"><span class="optText">Sammen med én anden</span></label>
+            <label class="opt"><input type="radio" name="q6" value="I en lille gruppe"><span class="optText">I en lille gruppe</span></label>
+            <label class="opt"><input type="radio" name="q6" value="Forskelligt – det kommer an på opgaven"><span class="optText">Forskelligt – det kommer an på opgaven</span></label>
           </div>
         </div>
 
-        <!-- Q7 -->
+        <!-- 7 -->
         <div class="q">
           <div class="qTop">
             <div class="qNum">7</div>
-            <div class="qText">Når jeg skal lære noget nyt, hjælper det mig mest at …</div>
+            <div class="qText">🛠️ Når jeg skal lære noget nyt, hjælper det mig mest at …</div>
             <div class="qRule">max 2</div>
           </div>
           <div class="options" aria-label="Q7">
-            <label class="opt"><input type="checkbox" name="q7" value="Få det forklaret"> Få det forklaret</label>
-            <label class="opt"><input type="checkbox" name="q7" value="Se et eksempel"> Se et eksempel</label>
-            <label class="opt"><input type="checkbox" name="q7" value="Prøve selv"> Prøve selv</label>
-            <label class="opt"><input type="checkbox" name="q7" value="Tale med andre om det"> Tale med andre om det</label>
-            <label class="opt"><input type="checkbox" name="q7" value="Tegne eller skrive"> Tegne eller skrive</label>
+            <label class="opt"><input type="checkbox" name="q7" value="Få det forklaret"><span class="optText">Få det forklaret</span></label>
+            <label class="opt"><input type="checkbox" name="q7" value="Se et eksempel"><span class="optText">Se et eksempel</span></label>
+            <label class="opt"><input type="checkbox" name="q7" value="Prøve selv"><span class="optText">Prøve selv</span></label>
+            <label class="opt"><input type="checkbox" name="q7" value="Tale med andre om det"><span class="optText">Tale med andre om det</span></label>
+            <label class="opt"><input type="checkbox" name="q7" value="Tegne eller skrive"><span class="optText">Tegne eller skrive</span></label>
           </div>
         </div>
 
-        <!-- Q8 -->
+        <!-- 8 -->
         <div class="q">
           <div class="qTop">
             <div class="qNum">8</div>
-            <div class="qText">Når noget er svært, vil jeg helst …</div>
+            <div class="qText">🧠 Når noget er svært, vil jeg helst …</div>
             <div class="qRule">max 1</div>
           </div>
           <div class="options" role="radiogroup" aria-label="Q8">
-            <label class="opt"><input type="radio" name="q8" value="Kunne spørge lærerne"> Kunne spørge lærerne</label>
-            <label class="opt"><input type="radio" name="q8" value="Prøve selv først"> Prøve selv først</label>
-            <label class="opt"><input type="radio" name="q8" value="Spørge en ven"> Spørge en ven</label>
+            <label class="opt"><input type="radio" name="q8" value="Kunne spørge lærerne"><span class="optText">Kunne spørge lærerne</span></label>
+            <label class="opt"><input type="radio" name="q8" value="Prøve selv først"><span class="optText">Prøve selv først</span></label>
+            <label class="opt"><input type="radio" name="q8" value="Spørge en ven"><span class="optText">Spørge en ven</span></label>
           </div>
         </div>
 
-        <!-- Q9 -->
+        <!-- 9 -->
         <div class="q">
           <div class="qTop">
             <div class="qNum">9</div>
-            <div class="qText">Når vi arbejder i matematik, vil jeg helst …</div>
+            <div class="qText">🎛️ Når vi arbejder i matematik, vil jeg helst …</div>
             <div class="qRule">max 1</div>
           </div>
           <div class="options" role="radiogroup" aria-label="Q9">
-            <label class="opt"><input type="radio" name="q9" value="Have faste opgaver"> Have faste opgaver</label>
-            <label class="opt"><input type="radio" name="q9" value="Kunne skifte mellem opgaver undervejs"> Kunne skifte mellem opgaver undervejs</label>
+            <label class="opt"><input type="radio" name="q9" value="Have faste opgaver"><span class="optText">Have faste opgaver</span></label>
+            <label class="opt"><input type="radio" name="q9" value="Kunne skifte mellem opgaver undervejs"><span class="optText">Kunne skifte mellem opgaver undervejs</span></label>
           </div>
         </div>
 
-        <!-- Q10 -->
+        <!-- 10 -->
         <div class="q">
           <div class="qTop">
             <div class="qNum">10</div>
-            <div class="qText">Jeg kan godt lide at …</div>
+            <div class="qText">🔄 Jeg kan godt lide at …</div>
             <div class="qRule">max 1</div>
           </div>
           <div class="options" role="radiogroup" aria-label="Q10">
-            <label class="opt"><input type="radio" name="q10" value="Arbejde længe med én opgave"> Arbejde længe med én opgave</label>
-            <label class="opt"><input type="radio" name="q10" value="Arbejde med flere små opgaver"> Arbejde med flere små opgaver</label>
+            <label class="opt"><input type="radio" name="q10" value="Arbejde længe med én opgave"><span class="optText">Arbejde længe med én opgave</span></label>
+            <label class="opt"><input type="radio" name="q10" value="Arbejde med flere små opgaver"><span class="optText">Arbejde med flere små opgaver</span></label>
           </div>
         </div>
 
-        <!-- Q11 -->
+        <!-- 11 -->
         <div class="q">
           <div class="qTop">
             <div class="qNum">11</div>
-            <div class="qText">Det gør mig stolt i skolen, når …</div>
+            <div class="qText">⭐ Det gør mig stolt i skolen, når …</div>
             <div class="qRule">max 1</div>
           </div>
           <div class="options" role="radiogroup" aria-label="Q11">
-            <label class="opt"><input type="radio" name="q11" value="Jeg forstår noget nyt"> Jeg forstår noget nyt</label>
-            <label class="opt"><input type="radio" name="q11" value="Jeg bliver bedre end før"> Jeg bliver bedre end før</label>
-            <label class="opt"><input type="radio" name="q11" value="Jeg klarer en svær opgave"> Jeg klarer en svær opgave</label>
+            <label class="opt"><input type="radio" name="q11" value="Jeg forstår noget nyt"><span class="optText">Jeg forstår noget nyt</span></label>
+            <label class="opt"><input type="radio" name="q11" value="Jeg bliver bedre end før"><span class="optText">Jeg bliver bedre end før</span></label>
+            <label class="opt"><input type="radio" name="q11" value="Jeg klarer en svær opgave"><span class="optText">Jeg klarer en svær opgave</span></label>
           </div>
         </div>
 
-        <!-- Q12 -->
+        <!-- 12 -->
         <div class="q">
           <div class="qTop">
             <div class="qNum">12</div>
-            <div class="qText">Jeg vil gerne blive bedre til …</div>
+            <div class="qText">🎒 Jeg vil gerne blive bedre til …</div>
             <div class="qRule">flere</div>
           </div>
           <div class="options" aria-label="Q12">
-            <label class="opt"><input type="checkbox" name="q12" value="At koncentrere mig"> At koncentrere mig</label>
-            <label class="opt"><input type="checkbox" name="q12" value="At arbejde selv"> At arbejde selv</label>
-            <label class="opt"><input type="checkbox" name="q12" value="At arbejde sammen med andre"> At arbejde sammen med andre</label>
-            <label class="opt"><input type="checkbox" name="q12" value="At forklare mine tanker"> At forklare mine tanker</label>
-            <label class="opt"><input type="checkbox" name="q12" value="At turde prøve svære ting"> At turde prøve svære ting</label>
+            <label class="opt"><input type="checkbox" name="q12" value="At koncentrere mig"><span class="optText">At koncentrere mig</span></label>
+            <label class="opt"><input type="checkbox" name="q12" value="At arbejde selv"><span class="optText">At arbejde selv</span></label>
+            <label class="opt"><input type="checkbox" name="q12" value="At arbejde sammen med andre"><span class="optText">At arbejde sammen med andre</span></label>
+            <label class="opt"><input type="checkbox" name="q12" value="At forklare mine tanker"><span class="optText">At forklare mine tanker</span></label>
+            <label class="opt"><input type="checkbox" name="q12" value="At turde prøve svære ting"><span class="optText">At turde prøve svære ting</span></label>
           </div>
         </div>
 
-        <!-- Q13 -->
+        <!-- 13 -->
         <div class="q">
           <div class="qTop">
             <div class="qNum">13</div>
-            <div class="qText">Hvis skolen var helt perfekt for mig, ville den …</div>
+            <div class="qText">🌈 Hvis skolen var helt perfekt for mig, ville den …</div>
             <div class="qRule">flere</div>
           </div>
           <div class="options" aria-label="Q13">
-            <label class="opt"><input type="checkbox" name="q13" value="Have flere valg"> Have flere valg</label>
-            <label class="opt"><input type="checkbox" name="q13" value="Have flere kreative opgaver"> Have flere kreative opgaver</label>
-            <label class="opt"><input type="checkbox" name="q13" value="Have mere ro"> Have mere ro</label>
-            <label class="opt"><input type="checkbox" name="q13" value="Have mere bevægelse"> Have mere bevægelse</label>
-            <label class="opt"><input type="checkbox" name="q13" value="Have mere leg og fantasi"> Have mere leg og fantasi</label>
-            <label class="opt"><input type="checkbox" name="q13" value="Have mere tid til fordybelse"> Have mere tid til fordybelse</label>
+            <label class="opt"><input type="checkbox" name="q13" value="Have flere valg"><span class="optText">Have flere valg</span></label>
+            <label class="opt"><input type="checkbox" name="q13" value="Have flere kreative opgaver"><span class="optText">Have flere kreative opgaver</span></label>
+            <label class="opt"><input type="checkbox" name="q13" value="Have mere ro"><span class="optText">Have mere ro</span></label>
+            <label class="opt"><input type="checkbox" name="q13" value="Have mere bevægelse"><span class="optText">Have mere bevægelse</span></label>
+            <label class="opt"><input type="checkbox" name="q13" value="Have mere leg og fantasi"><span class="optText">Have mere leg og fantasi</span></label>
+            <label class="opt"><input type="checkbox" name="q13" value="Have mere tid til fordybelse"><span class="optText">Have mere tid til fordybelse</span></label>
           </div>
         </div>
 
-        <!-- Q14 -->
+        <!-- 14 -->
         <div class="q">
           <div class="qTop">
             <div class="qNum">14</div>
-            <div class="qText">Er der noget, vi som lærere skal vide om dig?</div>
+            <div class="qText">✍️ Er der noget, vi som lærere skal vide om dig?</div>
             <div class="qRule">frivilligt</div>
           </div>
           <div class="inline">
-            <div class="fieldRow">
-              <input class="field" id="q14" name="q14" placeholder="Skriv her (valgfrit) …" autocomplete="off" />
-            </div>
+            <input class="field" id="q14" placeholder="Skriv her (valgfrit) …" autocomplete="off" />
           </div>
         </div>
 
@@ -505,29 +572,30 @@
 
       <div class="actions">
         <div class="btns">
-          <button type="button" class="secondary" id="buildPromptBtn">Lav prompt</button>
-          <button type="button" class="ghost" id="resetBtn">Nulstil</button>
+          <button class="primary" type="button" id="buildBtn">✨ Lav ChatGPT-tekst</button>
+          <button class="secondary" type="button" id="downloadBtn">⬇️ Download .txt</button>
+          <button class="ghost" type="button" id="resetBtn">🔄 Nulstil</button>
         </div>
-        <div class="hint" id="limitHint">Tip: Nogle spørgsmål har “max 2”.</div>
+        <div class="hint" id="status"> </div>
       </div>
     </section>
 
-    <!-- PROMPT OUTPUT -->
-    <aside class="card promptCard" aria-label="Prompt">
+    <!-- OUTPUT CARD -->
+    <aside class="card" aria-label="ChatGPT prompt">
       <div class="cardHead">
-        <p class="cardTitle">🧾 ChatGPT-prompt (kopiér og indsæt)</p>
-        <p class="sub">Tryk “Lav prompt” når der er sat kryds.</p>
+        <h2 class="cardTitle">📄 Tekst til ChatGPT</h2>
+        <p class="sub">Kopiér og indsæt i ChatGPT — eller download som .txt</p>
       </div>
       <div class="content">
-        <textarea id="promptOut" placeholder="Prompten kommer her …"></textarea>
-        <div class="actions" style="padding:12px 0 0; border-top:0; background:transparent;">
-          <div class="btns">
-            <button type="button" id="copyBtn">Kopiér prompt</button>
-            <button type="button" class="ghost" id="selectBtn">Markér alt</button>
-          </div>
-          <div class="hint" id="status"> </div>
+        <textarea id="promptOut" placeholder="Tryk “Lav ChatGPT-tekst” når du har sat kryds …"></textarea>
+        <p class="note">Tip: Når du downloader, hedder filen fx <b>4Y_ChatGPT_prompt_Anders.txt</b></p>
+      </div>
+      <div class="actions">
+        <div class="btns">
+          <button class="secondary" type="button" id="copyBtn">📋 Kopiér</button>
+          <button class="ghost" type="button" id="selectBtn">🖊️ Markér alt</button>
         </div>
-        <p class="small">Prompten er lavet, så ChatGPT kun svarer med opgaver til 2×45 minutter (plug-and-play), baseret på elevens valg.</p>
+        <div class="hint">✅ Klar til at sætte direkte ind i ChatGPT</div>
       </div>
     </aside>
   </main>
@@ -535,7 +603,7 @@
   <div class="toast" id="toast">Kopieret ✅</div>
 
   <script>
-    // --- Small helpers ---
+    // Helpers
     const $ = (sel, el=document) => el.querySelector(sel);
     const $$ = (sel, el=document) => Array.from(el.querySelectorAll(sel));
 
@@ -543,24 +611,23 @@
       const t = $("#toast");
       t.textContent = msg;
       t.classList.add("show");
-      setTimeout(()=>t.classList.remove("show"), 1300);
+      setTimeout(()=>t.classList.remove("show"), 1200);
     };
 
-    // --- Max-selection rules (max 2 on q5, q7) ---
+    // Enforce max checkbox rules
     const enforceMaxChecks = (name, max) => {
       const boxes = $$(`input[type="checkbox"][name="${name}"]`);
       boxes.forEach(b => b.addEventListener("change", () => {
         const checked = boxes.filter(x => x.checked);
         if (checked.length > max) {
           b.checked = false;
-          toast(`Max ${max} kryds her`);
+          toast(`Max ${max} kryds her 🙂`);
         }
       }));
     };
     enforceMaxChecks("q5", 2);
     enforceMaxChecks("q7", 2);
 
-    // --- Read form values ---
     const getRadio = (name) => {
       const r = $(`input[type="radio"][name="${name}"]:checked`);
       return r ? r.value : "";
@@ -589,82 +656,117 @@
       const q13 = getChecks("q13");
       const q14 = ($("#q14").value || "").trim();
 
-      // Build a clean "answer sheet" block
-      const lines = [];
-      lines.push(`Navn: ${studentName}`);
-      lines.push(`Klasse: ${studentClass}`);
-      lines.push(`1) ${q1 || "—"}`);
-      lines.push(`2) ${q2 || "—"}`);
-      lines.push(`3) ${q3.length ? q3.join(", ") : "—"}`);
-      lines.push(`4) ${q4.length ? q4.join(", ") : "—"}${q4other ? ` (Uddyb: ${q4other})` : ""}`);
-      lines.push(`5) ${q5.length ? q5.join(", ") : "—"}`);
-      lines.push(`6) ${q6 || "—"}`);
-      lines.push(`7) ${q7.length ? q7.join(", ") : "—"}`);
-      lines.push(`8) ${q8 || "—"}`);
-      lines.push(`9) ${q9 || "—"}`);
-      lines.push(`10) ${q10 || "—"}`);
-      lines.push(`11) ${q11 || "—"}`);
-      lines.push(`12) ${q12.length ? q12.join(", ") : "—"}`);
-      lines.push(`13) ${q13.length ? q13.join(", ") : "—"}`);
-      lines.push(`14) ${q14 || "—"}`);
+      const answers = [
+        `Navn: ${studentName}`,
+        `Klasse: ${studentClass}`,
+        `1) ${q1 || "—"}`,
+        `2) ${q2 || "—"}`,
+        `3) ${q3.length ? q3.join(", ") : "—"}`,
+        `4) ${q4.length ? q4.join(", ") : "—"}${q4other ? ` (Uddyb: ${q4other})` : ""}`,
+        `5) ${q5.length ? q5.join(", ") : "—"}`,
+        `6) ${q6 || "—"}`,
+        `7) ${q7.length ? q7.join(", ") : "—"}`,
+        `8) ${q8 || "—"}`,
+        `9) ${q9 || "—"}`,
+        `10) ${q10 || "—"}`,
+        `11) ${q11 || "—"}`,
+        `12) ${q12.length ? q12.join(", ") : "—"}`,
+        `13) ${q13.length ? q13.join(", ") : "—"}`,
+        `14) ${q14 || "—"}`
+      ].join("\n");
 
-      const answersBlock = lines.join("\n");
-
-      // The "custom prompt" the user wanted (printable tasks only, no teacher/student messages)
+      // IMPORTANT: prompt must force "tasks only" output
       const prompt =
 `Du er en dansk matematiklærer for 4. klasse og didaktisk designer.
 
-Opgave: Lav et PERSONLIGT matematikforløb til denne elev baseret på elevens svar.
+Lav et PERSONLIGT matematikforløb til eleven ud fra elevens besvarelse.
 
 KRAV (skal overholdes):
 - Varighed: 2 lektioner á 45 minutter (2×45 min).
 - Output: KUN opgaver/arbejdsark-tekst. Ingen beskeder til lærer eller elever. Ingen introduktion. Ingen forklaringer. Bare opgaverne.
 - Differentiering: For hver lektion skal der være 3 spor: Basis / Plus / Challenge.
-- Klarhed: Opgaverne skal være lette at orientere sig i, tydeligt opdelt i sektioner.
-- Realistisk 4. klasse + stor niveauspredning: Basis skal kunne løses af elever, der kæmper; Challenge må gerne strække de stærke.
+- Klarhed: Super tydeligt layout, så det kan printes direkte.
+- Realistisk 4. klasse med stor niveauspredning: Basis skal kunne løses af elever der kæmper; Challenge må strække de stærke.
 - Brug elevens interesser aktivt i opgavekontekster (Q4 + evt. uddybning).
 - Respektér elevens præferencer for ro/samarbejde/bevægelse/valg og læringsstrategier (Q5–Q10).
-- Opgaverne skal kunne printes direkte (tekstformat).
+- Giv nok opgaver til at fylde 45 minutter per lektion.
+- Opgaverne skal være konkrete (fx antal opgaver, tydelige delspørgsmål).
 
-FORMAT (skal bruges):
+FORMAT (skal bruges præcist):
 LEKTION 1 (45 min)
 BASIS
-- Opgave 1 …
-- Opgave 2 …
-- Opgave 3 …
+1) …
+2) …
+3) …
 PLUS
-- Opgave 1 …
-- Opgave 2 …
-- Opgave 3 …
+1) …
+2) …
+3) …
 CHALLENGE
-- Opgave 1 …
-- Opgave 2 …
-- Opgave 3 …
+1) …
+2) …
+3) …
 
 LEKTION 2 (45 min)
 BASIS
-- Opgave 1 …
-- Opgave 2 …
-- Opgave 3 …
+1) …
+2) …
+3) …
 PLUS
-- Opgave 1 …
-- Opgave 2 …
-- Opgave 3 …
+1) …
+2) …
+3) …
 CHALLENGE
-- Opgave 1 …
-- Opgave 2 …
-- Opgave 3 …
+1) …
+2) …
+3) …
 
 ELEVENS SVAR:
-${answersBlock}
+${answers}
 `;
 
       $("#promptOut").value = prompt;
-      $("#status").textContent = "Prompt klar ✅";
+      $("#status").textContent = "✅ Teksten er klar!";
+      return { prompt, studentName, studentClass };
     };
 
-    // --- Buttons ---
-    $("#buildPromptBtn").addEventListener("click", buildPrompt);
+    // Download prompt as .txt
+    const downloadTxt = () => {
+      const { prompt, studentName, studentClass } = buildPrompt();
+      if (!prompt.trim()) return;
+
+      const safeName = (studentName || "Elev")
+        .replace(/[^\w\-æøåÆØÅ ]+/g, "")
+        .trim()
+        .replace(/\s+/g, "_");
+
+      const safeClass = (studentClass || "4Y")
+        .replace(/[^\w\-]+/g, "")
+        .trim();
+
+      const filename = `${safeClass}_ChatGPT_prompt_${safeName}.txt`;
+
+      const blob = new Blob([prompt], { type: "text/plain;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+
+      URL.revokeObjectURL(url);
+      toast("Downloaded ✅");
+    };
+
+    // Buttons
+    $("#buildBtn").addEventListener("click", () => {
+      buildPrompt();
+      toast("Prompt klar ✅");
+    });
+
+    $("#downloadBtn").addEventListener("click", downloadTxt);
 
     $("#resetBtn").addEventListener("click", () => {
       $("#survey").reset();
@@ -674,30 +776,28 @@ ${answersBlock}
       $("#q14").value = "";
       $("#promptOut").value = "";
       $("#status").textContent = "";
-      toast("Nulstillet");
+      toast("Nulstillet 🔄");
     });
 
     $("#selectBtn").addEventListener("click", () => {
       const ta = $("#promptOut");
       ta.focus();
       ta.select();
-      $("#status").textContent = "Markeret ✍️";
+      toast("Markeret ✍️");
     });
 
     $("#copyBtn").addEventListener("click", async () => {
-      const text = $("#promptOut").value.trim();
-      if (!text) { toast("Lav prompt først"); return; }
+      const text = $("#promptOut").value.trim() || buildPrompt().prompt.trim();
+      if (!text) { toast("Lav teksten først 🙂"); return; }
+
       try{
         await navigator.clipboard.writeText(text);
         toast("Kopieret ✅");
-        $("#status").textContent = "Kopieret til udklipsholder ✅";
       }catch(e){
-        // Fallback
         const ta = $("#promptOut");
         ta.focus(); ta.select();
         document.execCommand("copy");
         toast("Kopieret ✅");
-        $("#status").textContent = "Kopieret (fallback) ✅";
       }
     });
   </script>
