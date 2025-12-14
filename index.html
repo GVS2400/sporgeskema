@@ -971,81 +971,90 @@
 
       return `Du er en dansk matematiklærer for 4. klasse og didaktisk designer.
 
-Lav et PERSONLIGT matematikforløb til eleven ud fra elevens besvarelse.
+DU SKAL LAVE ÉT SAMMENHÆNGENDE MATEMATIK-PROJEKT (som en mini-matematikbog), hvor alt hænger sammen fra start til slut.
+Det skal føles som “byg noget”-projekt med faste trin, rammer, og et tydeligt slutprodukt.
 
 KRAV (skal overholdes):
 - Varighed: 2 lektioner á 45 minutter (2×45 min).
 - Output: KUN opgaver/arbejdsark-tekst. Ingen beskeder til lærer eller elever. Ingen introduktion. Ingen forklaringer.
-- Differentiering: For hver lektion skal der være 3 spor: Basis / Plus / Challenge.
-- Klarhed: Super tydeligt layout, så det kan printes direkte på A4.
+- Printbart A4-layout med tydelige sektioner, opgavebokse, nummerering og “Svar: ____”.
+- Differentiering: For HVER lektion skal der være 3 spor: Basis / Plus / Challenge.
 - Realistisk 4. klasse med stor niveauspredning:
-  - Basis skal kunne løses af elever der kæmper.
-  - Challenge må strække de stærke.
-- Brug elevens interesser aktivt i opgavekontekster.
+  - Basis kan løses af elever der kæmper.
+  - Challenge strækker de stærke.
+- Brug elevens interesser aktivt i hele projektets verden/fortælling (samme setting gennem begge lektioner).
 - Respektér elevens præferencer for ro/samarbejde/bevægelse/valg og læringsstrategier.
-- Opgaverne skal ligne en klassisk matematikbog:
-  - store tydelige overskrifter
-  - opgavebokse
-  - nummerering
-  - plads til at skrive svar (fx “Svar: ____”)
-  - ingen pyntetekst der forvirrer
+- Ingen “fluff”: alt skal være konkret, let at afkode og uden forvirrende tekst.
+
+PROJEKTSTRUKTUR (SKAL BRUGES):
+Projektet skal følge disse 5 faste trin (som en sammenhængende mission):
+TRIN 1 — VÆLG (eleven vælger mellem muligheder med tal/priser/størrelser/regler)
+TRIN 2 — PLANLÆG/TEGN (arbejde med felter/areal/placering/overblik – meget konkret)
+TRIN 3 — BUDGET/REGN (opstil tabel, regn totaler, rest, kontrol af regler)
+TRIN 4 — BONUS (indtjening/point/tid/rekorder → regn fortjeneste eller resultat)
+TRIN 5 — EKSTRA FOR DE HURTIGE (udvidelse, rabatter, procent, ekstra udfordring)
+
+VIGTIGT:
+- De 5 trin skal hænge sammen i én og samme verden (ikke separate småopgaver).
+- Hver lektion skal have alle 5 trin i en “lektion-version” (lektion 2 bygger videre på lektion 1 og bruger de valg eleven allerede har lavet).
+- I lektion 2 skal der være mindst 2 steder, hvor eleven bruger noget fra lektion 1 (fx deres valg/budget/tegning) og regner videre på det.
 
 ELEVINFO:
-Navn: ${studentName}
-Klasse: ${studentClass}
+Navn: [indsæt elevnavn]
+Klasse: [indsæt klasse]
 
-SPØRGESKEMA-SVAR:
+ELEVENS SVAR (brug dem aktivt):
+1) Matematik føles:
+[...]
+2) Start-præference:
+[...]
+3) Fokusområder:
+[...]
+4) Interesse-temaer:
+[...]
+5) Arbejder bedst når (max 2):
+[...]
+6) Alene/partner/gruppe:
+[...]
+7) Lærer bedst ved (max 2):
+[...]
+8) Når svært:
+[...]
+9) Fast/skifte:
+[...]
+10) Lange/korte opgaver:
+[...]
+11) Stolt når:
+[...]
+12) Vil blive bedre til:
+[...]
+13) Perfekt skole:
+[...]
+14) Ekstra:
+[...]
 
-1) Når jeg arbejder med matematik:
-${fmtSingle(answers.q1)}
+DESIGNPROFIL (brug til at vælge format):
+- Hvis eleven vælger “jeg vil skifte mellem opgaver” eller “flere små opgaver”, så gør trinopgaver kortere og flere.
+- Hvis eleven foretrækker ro/fordybelse, så gør færre men mere sammenhængende opgaver med plads til at regne.
+- Hvis eleven lærer ved “se eksempel”, så giv et mini-eksempel (meget kort) inde i opgaven — men uden forklarende tekst.
+- Hvis eleven lærer ved “prøve selv”, så drop eksempler og giv tydelige krav i stedet.
 
-2) Når vi starter på en ny opgave, vil jeg helst:
-${fmtSingle(answers.q2)}
+MATEMATIKINDHOLD:
+- Brug især elevens fokusområder fra spørgsmål 3.
+- Indbyg blanding af (efter behov): plus/minus, gange/division, måling, brøker, problemløsning.
+- Alle tal skal passe til 4. klasse (Basis meget tilgængeligt, Challenge mere udfordrende men stadig realistisk).
 
-3) Jeg vil gerne blive bedre til:
-${fmtList(answers.q3)}
+OPSÆTNINGEN AF DIT OUTPUT SKAL VÆRE PRÆCIS:
+- Overskrift: “MATEMATIK-PROJEKT: [projektets navn]”
+- Underoverskrift: “Elev: [navn] · Klasse: [klasse]”
+- LEKTION 1 (45 min)
+  - BASIS / PLUS / CHALLENGE (3 separate blokke)
+  - Inde i hver blok: TRIN 1–5 med tydelige underoverskrifter og opgavebokse.
+- LEKTION 2 (45 min)
+  - BASIS / PLUS / CHALLENGE (3 separate blokke)
+  - Inde i hver blok: TRIN 1–5 (bygger videre på lektion 1).
 
-4) Matematik er sjovest for mig, når det handler om:
-${fmtList(answers.q4)}
-Uddyb: ${answers.q4extra ? answers.q4extra : "(ingen)"}
-
-5) Når jeg arbejder bedst, er det fordi (max 2):
-${fmtList(answers.q5)}
-
-6) Jeg arbejder bedst:
-${fmtSingle(answers.q6)}
-
-7) Når jeg skal lære noget nyt, hjælper det mig mest (max 2):
-${fmtList(answers.q7)}
-
-8) Når noget er svært, vil jeg helst:
-${fmtSingle(answers.q8)}
-
-9) Når vi arbejder i matematik, vil jeg helst:
-${fmtSingle(answers.q9)}
-
-10) Jeg kan godt lide at:
-${fmtSingle(answers.q10)}
-
-11) Det gør mig stolt i skolen, når:
-${fmtSingle(answers.q11)}
-
-12) Jeg vil gerne blive bedre til:
-${fmtList(answers.q12)}
-
-13) Hvis skolen var helt perfekt for mig, ville den:
-${fmtList(answers.q13)}
-
-14) Ekstra (frivilligt):
-${answers.q14 ? answers.q14 : "(ingen)"}
-
-EKSTRA DESIGNKRAV til opgaverne:
-- Brug primært disse fokusområder: ${focusAreas.length ? focusAreas.join(", ") : "vælg ud fra svarene"}.
-- Brug mindst 2 af disse interesse-temaer i opgaverne: ${interests.length ? interests.join(", ") : "vælg et neutralt tema"}.
-- Hver lektion skal fylde ca. 45 minutter: nok opgaver pr. spor.
-- Variation: bland fx regnestrategier, problemløsning, små tekststykker, og mål/penge/tid hvis det passer.
-
-VIGTIGT: Din respons skal KUN være selve arbejdsarket i printbart layout. Intet andet.`;
+VIGTIGT: Din respons skal KUN være arbejdsarket i printbart layout. Intet andet.`;
     }
 
     function setPromptOut(text){
