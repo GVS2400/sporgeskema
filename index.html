@@ -4,90 +4,170 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Min måde at lære på – Prompt-generator</title>
+
   <style>
     :root{
-      --bg: #f6f3ee;
-      --paper: #fffdf9;
-      --ink: #1f2937;
-      --muted:#6b7280;
-      --line:#e6dccf;
-      --accent:#1e7b6a;
-      --accent2:#e05a3b;
-      --chip:#eef5f3;
-      --shadow: 0 12px 30px rgba(17,24,39,.10);
+      /* Inspired by your birch-forest poster: calm teal + warm accent blobs */
+      --bgA:#d7efe9;       /* misty mint */
+      --bgB:#f6efe6;       /* warm paper */
+      --paper:#fffdf9;
+      --ink:#0f172a;
+      --muted:#475569;
+
+      --line:#e7dccb;
+      --line2:#d9cdbb;
+
+      --teal:#2a8f8d;
+      --tealDeep:#1e6f6d;
+      --sand:#f4e7d5;
+      --ochre:#f0b74a;
+      --coral:#e4664f;
+      --plum:#8a6bbd;
+
+      --shadow: 0 18px 40px rgba(2,6,23,.10);
+      --shadow2: 0 12px 26px rgba(2,6,23,.08);
+
       --radius: 18px;
-      --radius2: 12px;
+      --radius2: 14px;
+
       --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
       --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
     }
 
-    *{box-sizing:border-box}
-    html,body{height:100%}
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
     body{
       margin:0;
       font-family: var(--sans);
       color: var(--ink);
       background:
-        radial-gradient(1100px 700px at 20% 10%, #fff 0%, transparent 60%),
-        radial-gradient(900px 600px at 90% 30%, #fff 0%, transparent 55%),
-        linear-gradient(180deg, #f7f2ea 0%, var(--bg) 100%);
+        radial-gradient(900px 560px at 12% 12%, rgba(42,143,141,.18), transparent 60%),
+        radial-gradient(760px 520px at 88% 18%, rgba(240,183,74,.16), transparent 60%),
+        radial-gradient(760px 520px at 86% 90%, rgba(228,102,79,.12), transparent 55%),
+        linear-gradient(180deg, var(--bgA) 0%, var(--bgB) 100%);
     }
 
-    /* Layout */
-    .shell{
+    /* ---------- Layout ---------- */
+    .wrap{
       max-width: 1180px;
       margin: 0 auto;
-      padding: 18px 14px 28px;
-      display: grid;
+      padding: 16px 14px 28px;
+    }
+
+    .shell{
+      display:grid;
       grid-template-columns: 360px 1fr;
       gap: 16px;
       align-items: start;
+      margin-top: 14px;
     }
-
     @media (max-width: 980px){
-      .shell{grid-template-columns: 1fr; }
-      .side{position: static !important}
+      .shell{ grid-template-columns: 1fr; }
+      .side{ position: static !important; }
     }
 
-    .mast{
-      max-width: 1180px;
-      margin: 0 auto;
-      padding: 18px 14px 0;
-    }
-
+    /* ---------- Header / Hero ---------- */
     .hero{
-      background: linear-gradient(90deg, #ffffffcc, #fffdf9cc);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
+      border-radius: 22px;
+      overflow:hidden;
+      border: 1px solid rgba(231,220,203,.9);
       box-shadow: var(--shadow);
-      padding: 16px 16px 14px;
-      overflow: hidden;
-      position: relative;
+      background: rgba(255,255,255,.70);
+      backdrop-filter: blur(8px);
     }
-    .hero:before{
-      content:"";
-      position:absolute;
-      inset:-2px;
+
+    .heroTop{
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 14px;
+      border-bottom: 1px solid rgba(231,220,203,.9);
       background:
-        linear-gradient(120deg, transparent 0%, rgba(30,123,106,.08) 40%, transparent 70%),
-        radial-gradient(600px 220px at 10% 0%, rgba(224,90,59,.10), transparent 60%);
-      pointer-events:none;
+        linear-gradient(90deg,
+          rgba(42,143,141,.16),
+          rgba(240,183,74,.12),
+          rgba(228,102,79,.10)
+        );
     }
-    .hero h1{
-      margin: 0 0 6px;
-      letter-spacing: .5px;
+    .brand{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+    }
+    .dot{
+      width: 14px;
+      height: 14px;
+      border-radius: 999px;
+      background: conic-gradient(from 220deg, var(--teal), var(--ochre), var(--coral), var(--plum), var(--teal));
+      box-shadow: 0 10px 18px rgba(2,6,23,.18);
+    }
+    .brandTitle{
+      line-height: 1.1;
+    }
+    .brandTitle h1{
+      margin:0;
+      font-size: 16px;
+      letter-spacing: .7px;
       text-transform: uppercase;
-      font-size: 20px;
-      position: relative;
     }
-    .hero p{
-      margin: 0;
+    .brandTitle small{
+      display:block;
+      margin-top: 2px;
+      font-size: 12px;
+      color: rgba(15,23,42,.72);
+    }
+    .heroTop .badge{
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.80);
+      border: 1px solid rgba(231,220,203,.9);
+      color: rgba(15,23,42,.72);
+      white-space: nowrap;
+    }
+
+    .heroBody{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 12px;
+      padding: 12px 14px 14px;
+      background:
+        radial-gradient(760px 220px at 18% 0%, rgba(42,143,141,.12), transparent 62%),
+        radial-gradient(760px 220px at 80% 100%, rgba(240,183,74,.10), transparent 62%);
+    }
+    @media (max-width: 880px){
+      .heroBody{ grid-template-columns: 1fr; }
+    }
+
+    .heroText{
+      background: rgba(255,255,255,.82);
+      border: 1px solid rgba(231,220,203,.9);
+      border-radius: 18px;
+      padding: 12px;
+      box-shadow: var(--shadow2);
+    }
+    .heroText p{
+      margin:0;
       color: var(--muted);
       font-size: 14px;
       line-height: 1.35;
-      position: relative;
     }
+    .heroText b{ color: var(--ink); }
 
+    .banner{
+      border-radius: 18px;
+      overflow:hidden;
+      border: 1px solid rgba(231,220,203,.9);
+      box-shadow: var(--shadow2);
+      background:#fff;
+      min-height: 128px;
+      display:flex;
+      align-items:stretch;
+    }
+    .banner svg{ width:100%; height:100%; display:block; }
+
+    /* ---------- Sidebar ---------- */
     .side{
       position: sticky;
       top: 14px;
@@ -97,23 +177,20 @@
     }
 
     .card{
-      background: var(--paper);
-      border: 1px solid var(--line);
+      background: rgba(255,255,255,.82);
+      border: 1px solid rgba(231,220,203,.95);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
       padding: 14px;
+      backdrop-filter: blur(8px);
     }
 
     .card h2{
       margin: 0 0 10px;
-      font-size: 15px;
+      font-size: 14px;
       letter-spacing:.2px;
-    }
-
-    .mini{
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.35;
+      text-transform: uppercase;
+      color: rgba(15,23,42,.85);
     }
 
     .row{
@@ -121,9 +198,7 @@
       grid-template-columns: 1fr 1fr;
       gap:10px;
     }
-    @media (max-width: 420px){
-      .row{grid-template-columns: 1fr;}
-    }
+    @media (max-width: 420px){ .row{ grid-template-columns: 1fr; } }
 
     label{
       display:block;
@@ -131,17 +206,23 @@
       margin: 0 0 6px;
       color: var(--muted);
     }
+
     input[type="text"], textarea{
       width:100%;
       padding: 10px 10px;
-      border-radius: 12px;
-      border: 1px solid var(--line);
+      border-radius: 14px;
+      border: 1px solid rgba(231,220,203,.95);
       outline:none;
-      background: #fff;
+      background: rgba(255,255,255,.96);
       color: var(--ink);
       font-size: 14px;
+      box-shadow: inset 0 1px 0 rgba(15,23,42,.03);
     }
-    textarea{min-height: 84px; resize: vertical}
+    input[type="text"]:focus, textarea:focus{
+      border-color: rgba(42,143,141,.45);
+      box-shadow: 0 0 0 4px rgba(42,143,141,.14);
+    }
+    textarea{ min-height: 84px; resize: vertical; }
 
     .btns{
       display:flex;
@@ -151,74 +232,75 @@
     }
 
     button{
-      border: 1px solid var(--line);
-      background: #fff;
+      border: 1px solid rgba(231,220,203,.95);
+      background: rgba(255,255,255,.95);
       color: var(--ink);
       border-radius: 14px;
       padding: 10px 12px;
-      font-weight: 650;
+      font-weight: 780;
       font-size: 13px;
       cursor:pointer;
-      transition: transform .05s ease, box-shadow .2s ease, border-color .2s ease;
+      transition: transform .05s ease, box-shadow .2s ease, border-color .2s ease, filter .2s ease;
     }
-    button:hover{box-shadow: 0 10px 18px rgba(17,24,39,.10); border-color:#d7c6b5}
-    button:active{transform: translateY(1px)}
+    button:hover{
+      box-shadow: 0 12px 20px rgba(2,6,23,.10);
+      border-color: rgba(217,205,187,1);
+    }
+    button:active{ transform: translateY(1px); }
+
     .primary{
-      background: linear-gradient(180deg, #1e7b6a 0%, #166356 100%);
-      color: #fff;
-      border-color: rgba(30,123,106,.55);
+      background: linear-gradient(180deg, rgba(42,143,141,.95), rgba(30,111,109,.98));
+      color:#fff;
+      border-color: rgba(42,143,141,.55);
     }
     .danger{
-      background: linear-gradient(180deg, #e05a3b 0%, #c84b2f 100%);
+      background: linear-gradient(180deg, rgba(228,102,79,.95), rgba(200,78,57,.98));
       color:#fff;
-      border-color: rgba(224,90,59,.55);
-    }
-    .ghost{
-      background: #fff;
-      color: var(--ink);
+      border-color: rgba(228,102,79,.55);
     }
 
-    .pillbar{
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-      margin-top: 8px;
-    }
+    .pills{ display:flex; flex-wrap:wrap; gap:8px; margin-top: 10px; }
     .pill{
       font-size: 12px;
       padding: 6px 10px;
       border-radius: 999px;
-      background: var(--chip);
-      border: 1px solid rgba(30,123,106,.18);
-      color: #12473f;
-      font-weight: 650;
+      border: 1px solid rgba(231,220,203,.95);
+      background: rgba(255,255,255,.85);
+      color: rgba(15,23,42,.78);
+      font-weight: 720;
     }
 
+    /* ---------- Main sections (math-book feel) ---------- */
     .main{
       display:flex;
       flex-direction: column;
       gap: 12px;
     }
 
-    /* Questionnaire / “math book” sections */
     .section{
-      background: var(--paper);
-      border: 1px solid var(--line);
+      background: rgba(255,255,255,.84);
+      border: 1px solid rgba(231,220,203,.95);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
       padding: 14px;
       position: relative;
-      overflow: hidden;
+      overflow:hidden;
+      backdrop-filter: blur(8px);
     }
-    .section:before{
-      content:"";
+
+    /* “Chapter stripe” like a book */
+    .stripe{
       position:absolute;
-      inset: -1px;
-      background:
-        radial-gradient(560px 220px at 80% 0%, rgba(30,123,106,.07), transparent 60%),
-        radial-gradient(520px 220px at 15% 100%, rgba(224,90,59,.07), transparent 62%);
-      pointer-events:none;
+      left:0; top:0; bottom:0;
+      width: 10px;
+      background: linear-gradient(180deg, var(--teal), rgba(42,143,141,.35));
+      opacity:.95;
     }
+    .section[data-tone="ochre"] .stripe{ background: linear-gradient(180deg, var(--ochre), rgba(240,183,74,.35)); }
+    .section[data-tone="coral"] .stripe{ background: linear-gradient(180deg, var(--coral), rgba(228,102,79,.35)); }
+    .section[data-tone="plum"]  .stripe{ background: linear-gradient(180deg, var(--plum), rgba(138,107,189,.35)); }
+
+    .sectionInner{ position:relative; padding-left: 10px; }
 
     .sectionHeader{
       display:flex;
@@ -226,7 +308,6 @@
       justify-content: space-between;
       gap: 10px;
       margin-bottom: 10px;
-      position: relative;
     }
     .sectionHeader h3{
       margin: 0;
@@ -235,19 +316,18 @@
     }
     .rule{
       font-size: 12px;
-      color: var(--muted);
+      color: rgba(15,23,42,.70);
       white-space: nowrap;
-      border: 1px dashed #d8cbbb;
+      border: 1px dashed rgba(217,205,187,1);
       padding: 6px 10px;
       border-radius: 999px;
-      background: #fff;
+      background: rgba(255,255,255,.82);
     }
 
     .options{
       display:flex;
-      flex-direction: column; /* IMPORTANT: vertical stacking */
+      flex-direction: column; /* IMPORTANT: answers stacked vertically */
       gap: 8px;
-      position: relative;
     }
 
     .opt{
@@ -256,17 +336,32 @@
       gap: 10px;
       padding: 10px 10px;
       border-radius: 14px;
-      border: 1px solid var(--line);
-      background: #fff;
-      transition: border-color .2s ease, transform .05s ease;
+      border: 1px solid rgba(231,220,203,.95);
+      background: rgba(255,255,255,.92);
+      transition: border-color .2s ease, transform .05s ease, box-shadow .2s ease;
+      position: relative;
+      overflow:hidden;
     }
-    .opt:hover{border-color:#d7c6b5}
-    .opt:active{transform: translateY(1px)}
-    .opt input{margin-top: 2px; transform: scale(1.12)}
-    .opt span{
-      font-size: 14px;
-      line-height: 1.25;
+
+    /* Subtle dotted texture inside options (very light) */
+    .opt:before{
+      content:"";
+      position:absolute;
+      inset:-1px;
+      background-image: radial-gradient(rgba(15,23,42,.07) 1px, transparent 1px);
+      background-size: 16px 16px;
+      opacity: .10;
+      pointer-events:none;
     }
+
+    .opt:hover{
+      border-color: rgba(42,143,141,.45);
+      box-shadow: 0 10px 18px rgba(2,6,23,.06);
+    }
+    .opt:active{ transform: translateY(1px); }
+
+    .opt input{ margin-top: 2px; transform: scale(1.12); }
+    .opt span{ font-size: 14px; line-height: 1.25; position: relative; }
 
     .inline{
       display:flex;
@@ -274,16 +369,12 @@
       flex-wrap:wrap;
       align-items:center;
       margin-top: 10px;
-      position: relative;
-    }
-    .hint{
-      font-size: 12px;
-      color: var(--muted);
     }
 
-    /* Output */
+    /* ---------- Output ---------- */
     .output{
-      background: #0b1220;
+      background:
+        linear-gradient(180deg, rgba(15,23,42,.98), rgba(11,18,32,.98));
       color: #e5e7eb;
       border-radius: var(--radius);
       border: 1px solid rgba(255,255,255,.12);
@@ -297,10 +388,10 @@
       gap: 10px;
       margin-bottom: 10px;
     }
-    .outputTop strong{font-size: 13px; letter-spacing:.2px}
+    .outputTop strong{ font-size: 13px; letter-spacing:.2px; text-transform: uppercase; }
     .meter{
       font-size: 12px;
-      color: rgba(229,231,235,.8);
+      color: rgba(229,231,235,.80);
       font-family: var(--mono);
     }
     pre{
@@ -317,7 +408,7 @@
       left: 50%;
       bottom: 16px;
       transform: translateX(-50%);
-      background: rgba(17,24,39,.92);
+      background: rgba(15,23,42,.92);
       color: #fff;
       padding: 10px 12px;
       border-radius: 999px;
@@ -332,344 +423,448 @@
       transform: translateX(-50%) translateY(-2px);
     }
 
-    /* Small “worksheet vibe” preview box */
-    .worksheetPreview{
-      margin-top: 10px;
-      border-radius: var(--radius2);
-      border: 1px solid var(--line);
-      background:
-        linear-gradient(180deg, #fff 0%, #fffdf8 100%);
-      padding: 12px;
-      position: relative;
-    }
-    .worksheetPreview h4{
-      margin:0 0 8px;
-      font-size: 13px;
-      text-transform: uppercase;
-      letter-spacing: .6px;
-    }
-    .previewGrid{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-    @media (max-width: 680px){
-      .previewGrid{grid-template-columns:1fr}
-    }
-    .previewBox{
-      border: 1px dashed #d6c7b6;
-      border-radius: 12px;
-      padding: 10px;
-      background: #fff;
-      min-height: 70px;
-    }
-    .previewBox b{
-      display:block;
-      font-size: 12px;
-      margin-bottom: 6px;
-      color: #0f172a;
-    }
-    .previewBox div{
-      font-size: 12px;
-      color: var(--muted);
-      line-height: 1.35;
-    }
-
     .footerNote{
       text-align:center;
-      color: var(--muted);
+      color: rgba(15,23,42,.70);
       font-size: 12px;
       margin-top: 10px;
     }
   </style>
 </head>
+
 <body>
-  <div class="mast">
-    <div class="hero">
-      <h1>MIN MÅDE AT LÆRE PÅ</h1>
-      <p>Udfyld spørgeskemaet. Tryk “Lav prompt”. Download som .txt og send til Anders. (Ingen rigtige eller forkerte svar.)</p>
+  <div class="wrap">
+    <header class="hero" aria-label="Header">
+      <div class="heroTop">
+        <div class="brand">
+          <div class="dot" aria-hidden="true"></div>
+          <div class="brandTitle">
+            <h1>MIN MÅDE AT LÆRE PÅ</h1>
+            <small>Udfyld → Lav prompt → Download .txt → send til Anders</small>
+          </div>
+        </div>
+        <div class="badge">4. klasse · overskueligt · print-venligt</div>
+      </div>
+
+      <div class="heroBody">
+        <div class="heroText">
+          <p>
+            <b>Ingen rigtige eller forkerte svar.</b><br>
+            Vælg det der passer dig. Når du er færdig, tryk <b>“Lav prompt”</b> og download som <b>.txt</b>.
+          </p>
+        </div>
+
+        <!-- Header image (SVG) in the style you showed -->
+        <div class="banner" aria-label="Header-billede">
+          <svg viewBox="0 0 900 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Birkeskov header">
+            <defs>
+              <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#cfeee7"/>
+                <stop offset="1" stop-color="#dff3ee"/>
+              </linearGradient>
+              <linearGradient id="hill" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#2a8f8d"/>
+                <stop offset="1" stop-color="#1e6f6d"/>
+              </linearGradient>
+              <pattern id="sprinkle" width="18" height="18" patternUnits="userSpaceOnUse">
+                <circle cx="4" cy="5" r="1.2" fill="rgba(15,23,42,.35)"/>
+                <circle cx="12" cy="11" r="1.2" fill="rgba(15,23,42,.28)"/>
+                <circle cx="7" cy="15" r="1.1" fill="rgba(15,23,42,.22)"/>
+              </pattern>
+
+              <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+                <feGaussianBlur stdDeviation="0.6"/>
+              </filter>
+            </defs>
+
+            <!-- Sky -->
+            <rect width="900" height="220" fill="url(#sky)"/>
+
+            <!-- Hills -->
+            <path d="M0,190 C150,150 260,170 380,150 C520,125 640,155 900,120 L900,220 L0,220 Z"
+                  fill="url(#hill)" opacity=".92"/>
+            <path d="M0,210 C180,180 300,210 420,190 C560,165 660,185 900,165 L900,220 L0,220 Z"
+                  fill="#0f3f3e" opacity=".35"/>
+
+            <!-- Floating blobs (like your reference) -->
+            <g opacity=".88" filter="url(#soft)">
+              <ellipse cx="165" cy="62" rx="120" ry="36" fill="#f0b74a"/>
+              <ellipse cx="610" cy="56" rx="128" ry="40" fill="#e4664f"/>
+              <ellipse cx="452" cy="90" rx="150" ry="44" fill="#f4e7d5" opacity=".85"/>
+              <ellipse cx="740" cy="92" rx="130" ry="44" fill="#f4e7d5" opacity=".65"/>
+            </g>
+
+            <!-- Dotted texture on blobs -->
+            <g opacity=".35">
+              <ellipse cx="165" cy="62" rx="120" ry="36" fill="url(#sprinkle)"/>
+              <ellipse cx="610" cy="56" rx="128" ry="40" fill="url(#sprinkle)"/>
+              <ellipse cx="452" cy="90" rx="150" ry="44" fill="url(#sprinkle)"/>
+            </g>
+
+            <!-- Birch trunks -->
+            <g>
+              <!-- trunk helper function by repetition -->
+              <g transform="translate(110,18)">
+                <rect x="0" y="0" width="48" height="176" rx="14" fill="#fffaf2"/>
+                <path d="M6,168 l12,18 l12,-18 l12,18 l12,-18 v8 H6 Z" fill="#0f3f3e" opacity=".65"/>
+                <g opacity=".55" fill="#0f172a">
+                  <rect x="10" y="32" width="6" height="2" rx="1"/>
+                  <rect x="26" y="48" width="8" height="2" rx="1"/>
+                  <rect x="14" y="74" width="10" height="2" rx="1"/>
+                  <rect x="28" y="98" width="6" height="2" rx="1"/>
+                  <rect x="12" y="126" width="12" height="2" rx="1"/>
+                </g>
+              </g>
+
+              <g transform="translate(260,10)">
+                <rect x="0" y="0" width="44" height="186" rx="14" fill="#fffaf2"/>
+                <path d="M6,176 l10,16 l10,-16 l10,16 l10,-16 v8 H6 Z" fill="#0f3f3e" opacity=".62"/>
+                <g opacity=".55" fill="#0f172a">
+                  <rect x="10" y="40" width="10" height="2" rx="1"/>
+                  <rect x="20" y="62" width="12" height="2" rx="1"/>
+                  <rect x="12" y="90" width="8" height="2" rx="1"/>
+                  <rect x="22" y="112" width="10" height="2" rx="1"/>
+                  <rect x="10" y="142" width="14" height="2" rx="1"/>
+                </g>
+              </g>
+
+              <g transform="translate(430,22)">
+                <rect x="0" y="0" width="52" height="170" rx="14" fill="#fffaf2"/>
+                <path d="M6,160 l12,18 l12,-18 l12,18 l12,-18 v8 H6 Z" fill="#0f3f3e" opacity=".62"/>
+                <g opacity=".55" fill="#0f172a">
+                  <rect x="12" y="28" width="10" height="2" rx="1"/>
+                  <rect x="26" y="54" width="14" height="2" rx="1"/>
+                  <rect x="12" y="76" width="8" height="2" rx="1"/>
+                  <rect x="28" y="102" width="10" height="2" rx="1"/>
+                  <rect x="14" y="132" width="16" height="2" rx="1"/>
+                </g>
+              </g>
+
+              <g transform="translate(640,16)">
+                <rect x="0" y="0" width="46" height="176" rx="14" fill="#fffaf2"/>
+                <path d="M6,168 l10,16 l10,-16 l10,16 l10,-16 v8 H6 Z" fill="#0f3f3e" opacity=".62"/>
+                <g opacity=".55" fill="#0f172a">
+                  <rect x="10" y="36" width="12" height="2" rx="1"/>
+                  <rect x="22" y="58" width="10" height="2" rx="1"/>
+                  <rect x="12" y="84" width="14" height="2" rx="1"/>
+                  <rect x="26" y="110" width="8" height="2" rx="1"/>
+                  <rect x="10" y="140" width="12" height="2" rx="1"/>
+                </g>
+              </g>
+
+              <g transform="translate(780,28)">
+                <rect x="0" y="0" width="42" height="164" rx="14" fill="#fffaf2"/>
+                <path d="M6,156 l10,16 l10,-16 l10,16 l10,-16 v8 H6 Z" fill="#0f3f3e" opacity=".62"/>
+                <g opacity=".55" fill="#0f172a">
+                  <rect x="10" y="30" width="10" height="2" rx="1"/>
+                  <rect x="18" y="54" width="12" height="2" rx="1"/>
+                  <rect x="10" y="82" width="8" height="2" rx="1"/>
+                  <rect x="20" y="104" width="10" height="2" rx="1"/>
+                  <rect x="10" y="132" width="14" height="2" rx="1"/>
+                </g>
+              </g>
+            </g>
+
+            <!-- Ground sprinkles -->
+            <g opacity=".45">
+              <rect x="30" y="188" width="170" height="24" fill="url(#sprinkle)"/>
+              <rect x="300" y="195" width="240" height="22" fill="url(#sprinkle)"/>
+              <rect x="640" y="190" width="220" height="26" fill="url(#sprinkle)"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </header>
+
+    <div class="shell">
+      <!-- Sidebar -->
+      <aside class="side">
+        <div class="card">
+          <h2>Elev</h2>
+          <div class="row">
+            <div>
+              <label for="studentName">Navn</label>
+              <input id="studentName" type="text" placeholder="Fx Rose / Arly / …">
+            </div>
+            <div>
+              <label for="studentClass">Klasse</label>
+              <input id="studentClass" type="text" placeholder="Fx 4.Y">
+            </div>
+          </div>
+
+          <div class="pills" aria-label="Tips">
+            <div class="pill">Vælg ærligt</div>
+            <div class="pill">Svar står i kolonne</div>
+            <div class="pill">Print-venligt</div>
+          </div>
+
+          <div class="btns">
+            <button class="primary" id="makePromptBtn">Lav prompt</button>
+            <button id="copyBtn">Kopiér</button>
+            <button id="downloadBtn">Download .txt</button>
+            <button class="danger" id="resetBtn">Nulstil</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Prompt (klar til ChatGPT)</h2>
+          <div class="output" role="region" aria-label="Prompt output">
+            <div class="outputTop">
+              <strong>Output</strong>
+              <div class="meter" id="charCount">0 tegn</div>
+            </div>
+            <pre id="promptOut">Tryk “Lav prompt” når du er klar…</pre>
+          </div>
+          <div class="footerNote">Tip: Copy/paste hele prompten ind i ChatGPT.</div>
+        </div>
+      </aside>
+
+      <!-- Main questionnaire -->
+      <main class="main" aria-label="Spørgeskema">
+
+        <section class="section" data-tone="teal">
+          <div class="stripe" aria-hidden="true"></div>
+          <div class="sectionInner">
+            <div class="sectionHeader">
+              <h3>🧠 1. Når jeg arbejder med matematik …</h3>
+              <div class="rule">Max 1 kryds</div>
+            </div>
+            <div class="options">
+              <label class="opt"><input type="radio" name="q1" value="Det føles let for mig"><span>Det føles let for mig</span></label>
+              <label class="opt"><input type="radio" name="q1" value="Det føles ok – noget er let, noget er svært"><span>Det føles ok – noget er let, noget er svært</span></label>
+              <label class="opt"><input type="radio" name="q1" value="Det føles svært, men jeg vil gerne blive bedre"><span>Det føles svært, men jeg vil gerne blive bedre</span></label>
+              <label class="opt"><input type="radio" name="q1" value="Det afhænger af, hvad vi arbejder med"><span>Det afhænger af, hvad vi arbejder med</span></label>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" data-tone="ochre">
+          <div class="stripe" aria-hidden="true"></div>
+          <div class="sectionInner">
+            <div class="sectionHeader">
+              <h3>🚀 2. Når vi starter på en ny opgave, vil jeg helst …</h3>
+              <div class="rule">Max 1 kryds</div>
+            </div>
+            <div class="options">
+              <label class="opt"><input type="radio" name="q2" value="Starte med noget let og blive sikker"><span>Starte med noget let og blive sikker</span></label>
+              <label class="opt"><input type="radio" name="q2" value="Starte med noget svært og udfordre mig selv"><span>Starte med noget svært og udfordre mig selv</span></label>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" data-tone="plum">
+          <div class="stripe" aria-hidden="true"></div>
+          <div class="sectionInner">
+            <div class="sectionHeader">
+              <h3>🔢 3. Jeg vil gerne blive bedre til …</h3>
+              <div class="rule">Vælg flere</div>
+            </div>
+            <div class="options">
+              <label class="opt"><input type="checkbox" name="q3" value="Plus og minus"><span>Plus og minus</span></label>
+              <label class="opt"><input type="checkbox" name="q3" value="Gange"><span>Gange</span></label>
+              <label class="opt"><input type="checkbox" name="q3" value="Division"><span>Division</span></label>
+              <label class="opt"><input type="checkbox" name="q3" value="Brøker (pizza-, kage- og del-tal)"><span>Brøker (pizza-, kage- og del-tal 🍕)</span></label>
+              <label class="opt"><input type="checkbox" name="q3" value="Måling (tid, penge, længde, vægt)"><span>Måling (tid, penge, længde, vægt)</span></label>
+              <label class="opt"><input type="checkbox" name="q3" value="Problemer og gåder"><span>Problemer og gåder</span></label>
+              <label class="opt"><input type="checkbox" name="q3" value="Matematik med historier og fantasi"><span>Matematik med historier og fantasi</span></label>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" data-tone="coral">
+          <div class="stripe" aria-hidden="true"></div>
+          <div class="sectionInner">
+            <div class="sectionHeader">
+              <h3>🎮 4. Matematik er sjovest for mig, når det handler om …</h3>
+              <div class="rule">Vælg flere</div>
+            </div>
+            <div class="options">
+              <label class="opt"><input type="checkbox" name="q4" value="Spil"><span>Spil</span></label>
+              <label class="opt"><input type="checkbox" name="q4" value="Sport"><span>Sport</span></label>
+              <label class="opt"><input type="checkbox" name="q4" value="Gaming"><span>Gaming</span></label>
+              <label class="opt"><input type="checkbox" name="q4" value="Dyr"><span>Dyr</span></label>
+              <label class="opt"><input type="checkbox" name="q4" value="Mad og butikker"><span>Mad og butikker</span></label>
+              <label class="opt"><input type="checkbox" name="q4" value="Musik, dans eller TikTok"><span>Musik, dans eller TikTok</span></label>
+              <label class="opt"><input type="checkbox" name="q4" value="Eventyr, fantasi og magi"><span>Eventyr, fantasi og magi</span></label>
+              <label class="opt"><input type="checkbox" name="q4" value="Virkelige ting fra hverdagen"><span>Virkelige ting fra hverdagen</span></label>
+            </div>
+            <div class="inline">
+              <div style="flex:1">
+                <label for="q4extra">Uddyb (valgfrit)</label>
+                <input id="q4extra" type="text" placeholder="Fx Minecraft, heste, madlavning, fodbold, …">
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" data-tone="teal">
+          <div class="stripe" aria-hidden="true"></div>
+          <div class="sectionInner">
+            <div class="sectionHeader">
+              <h3>🧩 5. Når jeg arbejder bedst, er det fordi …</h3>
+              <div class="rule">Max 2 krydser</div>
+            </div>
+            <div class="options limit2" data-limit="2" data-name="q5">
+              <label class="opt"><input type="checkbox" name="q5" value="Jeg kan arbejde i ro"><span>Jeg kan arbejde i ro</span></label>
+              <label class="opt"><input type="checkbox" name="q5" value="Jeg kan tale med andre"><span>Jeg kan tale med andre</span></label>
+              <label class="opt"><input type="checkbox" name="q5" value="Jeg kan bevæge mig lidt"><span>Jeg kan bevæge mig lidt</span></label>
+              <label class="opt"><input type="checkbox" name="q5" value="Jeg kan skifte mellem opgaver"><span>Jeg kan skifte mellem opgaver</span></label>
+              <label class="opt"><input type="checkbox" name="q5" value="Jeg ved præcis, hvad jeg skal"><span>Jeg ved præcis, hvad jeg skal</span></label>
+              <label class="opt"><input type="checkbox" name="q5" value="Jeg selv må vælge noget"><span>Jeg selv må vælge noget</span></label>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" data-tone="ochre">
+          <div class="stripe" aria-hidden="true"></div>
+          <div class="sectionInner">
+            <div class="sectionHeader">
+              <h3>👥 6. Jeg arbejder bedst …</h3>
+              <div class="rule">Max 1 kryds</div>
+            </div>
+            <div class="options">
+              <label class="opt"><input type="radio" name="q6" value="Alene"><span>Alene</span></label>
+              <label class="opt"><input type="radio" name="q6" value="Sammen med én anden"><span>Sammen med én anden</span></label>
+              <label class="opt"><input type="radio" name="q6" value="I en lille gruppe"><span>I en lille gruppe</span></label>
+              <label class="opt"><input type="radio" name="q6" value="Forskelligt – det kommer an på opgaven"><span>Forskelligt – det kommer an på opgaven</span></label>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" data-tone="plum">
+          <div class="stripe" aria-hidden="true"></div>
+          <div class="sectionInner">
+            <div class="sectionHeader">
+              <h3>🛠️ 7. Når jeg skal lære noget nyt, hjælper det mig mest at …</h3>
+              <div class="rule">Max 2 krydser</div>
+            </div>
+            <div class="options limit2" data-limit="2" data-name="q7">
+              <label class="opt"><input type="checkbox" name="q7" value="Få det forklaret"><span>Få det forklaret</span></label>
+              <label class="opt"><input type="checkbox" name="q7" value="Se et eksempel"><span>Se et eksempel</span></label>
+              <label class="opt"><input type="checkbox" name="q7" value="Prøve selv"><span>Prøve selv</span></label>
+              <label class="opt"><input type="checkbox" name="q7" value="Tale med andre om det"><span>Tale med andre om det</span></label>
+              <label class="opt"><input type="checkbox" name="q7" value="Tegne eller skrive"><span>Tegne eller skrive</span></label>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" data-tone="coral">
+          <div class="stripe" aria-hidden="true"></div>
+          <div class="sectionInner">
+            <div class="sectionHeader">
+              <h3>🧠 8. Når noget er svært, vil jeg helst …</h3>
+              <div class="rule">Max 1 kryds</div>
+            </div>
+            <div class="options">
+              <label class="opt"><input type="radio" name="q8" value="Kunne spørge lærerne"><span>Kunne spørge lærerne</span></label>
+              <label class="opt"><input type="radio" name="q8" value="Prøve selv først"><span>Prøve selv først</span></label>
+              <label class="opt"><input type="radio" name="q8" value="Spørge en ven"><span>Spørge en ven</span></label>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" data-tone="teal">
+          <div class="stripe" aria-hidden="true"></div>
+          <div class="sectionInner">
+            <div class="sectionHeader">
+              <h3>🎛️ 9. Når vi arbejder i matematik, vil jeg helst …</h3>
+              <div class="rule">Max 1 kryds</div>
+            </div>
+            <div class="options">
+              <label class="opt"><input type="radio" name="q9" value="Have faste opgaver"><span>Have faste opgaver</span></label>
+              <label class="opt"><input type="radio" name="q9" value="Kunne skifte mellem opgaver undervejs"><span>Kunne skifte mellem opgaver undervejs</span></label>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" data-tone="ochre">
+          <div class="stripe" aria-hidden="true"></div>
+          <div class="sectionInner">
+            <div class="sectionHeader">
+              <h3>🔄 10. Jeg kan godt lide at …</h3>
+              <div class="rule">Max 1 kryds</div>
+            </div>
+            <div class="options">
+              <label class="opt"><input type="radio" name="q10" value="Arbejde længe med én opgave"><span>Arbejde længe med én opgave</span></label>
+              <label class="opt"><input type="radio" name="q10" value="Arbejde med flere små opgaver"><span>Arbejde med flere små opgaver</span></label>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" data-tone="plum">
+          <div class="stripe" aria-hidden="true"></div>
+          <div class="sectionInner">
+            <div class="sectionHeader">
+              <h3>⭐ 11. Det gør mig stolt i skolen, når …</h3>
+              <div class="rule">Max 1 kryds</div>
+            </div>
+            <div class="options">
+              <label class="opt"><input type="radio" name="q11" value="Jeg forstår noget nyt"><span>Jeg forstår noget nyt</span></label>
+              <label class="opt"><input type="radio" name="q11" value="Jeg bliver bedre end før"><span>Jeg bliver bedre end før</span></label>
+              <label class="opt"><input type="radio" name="q11" value="Jeg klarer en svær opgave"><span>Jeg klarer en svær opgave</span></label>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" data-tone="coral">
+          <div class="stripe" aria-hidden="true"></div>
+          <div class="sectionInner">
+            <div class="sectionHeader">
+              <h3>🎒 12. Jeg vil gerne blive bedre til …</h3>
+              <div class="rule">Vælg flere</div>
+            </div>
+            <div class="options">
+              <label class="opt"><input type="checkbox" name="q12" value="At koncentrere mig"><span>At koncentrere mig</span></label>
+              <label class="opt"><input type="checkbox" name="q12" value="At arbejde selv"><span>At arbejde selv</span></label>
+              <label class="opt"><input type="checkbox" name="q12" value="At arbejde sammen med andre"><span>At arbejde sammen med andre</span></label>
+              <label class="opt"><input type="checkbox" name="q12" value="At forklare mine tanker"><span>At forklare mine tanker</span></label>
+              <label class="opt"><input type="checkbox" name="q12" value="At turde prøve svære ting"><span>At turde prøve svære ting</span></label>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" data-tone="teal">
+          <div class="stripe" aria-hidden="true"></div>
+          <div class="sectionInner">
+            <div class="sectionHeader">
+              <h3>🌈 13. Hvis skolen var helt perfekt for mig, ville den …</h3>
+              <div class="rule">Vælg flere</div>
+            </div>
+            <div class="options">
+              <label class="opt"><input type="checkbox" name="q13" value="Have flere valg"><span>Have flere valg</span></label>
+              <label class="opt"><input type="checkbox" name="q13" value="Have flere kreative opgaver"><span>Have flere kreative opgaver</span></label>
+              <label class="opt"><input type="checkbox" name="q13" value="Have mere ro"><span>Have mere ro</span></label>
+              <label class="opt"><input type="checkbox" name="q13" value="Have mere bevægelse"><span>Have mere bevægelse</span></label>
+              <label class="opt"><input type="checkbox" name="q13" value="Have mere leg og fantasi"><span>Have mere leg og fantasi</span></label>
+              <label class="opt"><input type="checkbox" name="q13" value="Have mere tid til fordybelse"><span>Have mere tid til fordybelse</span></label>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" data-tone="ochre">
+          <div class="stripe" aria-hidden="true"></div>
+          <div class="sectionInner">
+            <div class="sectionHeader">
+              <h3>✍️ 14. Er der noget, vi som lærere skal vide om dig? (frivilligt)</h3>
+              <div class="rule">Tekst</div>
+            </div>
+            <div class="inline" style="margin-top:0">
+              <div style="flex:1">
+                <label for="q14text">Skriv her (valgfrit)</label>
+                <textarea id="q14text" placeholder="Fx: Jeg bliver hurtigt træt sidst på dagen / Jeg vil gerne have tydelige trin / Jeg bliver rolig af …"></textarea>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </main>
     </div>
-  </div>
-
-  <div class="shell">
-    <!-- Sidebar: student info + actions + output -->
-    <aside class="side">
-      <div class="card">
-        <h2>Elev</h2>
-        <div class="row">
-          <div>
-            <label for="studentName">Navn</label>
-            <input id="studentName" type="text" placeholder="Fx Rose / Arly / …">
-          </div>
-          <div>
-            <label for="studentClass">Klasse</label>
-            <input id="studentClass" type="text" placeholder="Fx 4.Y">
-          </div>
-        </div>
-
-        <div class="pillbar" aria-label="Tips">
-          <div class="pill">Vælg ærligt</div>
-          <div class="pill">Flere krydser ok</div>
-          <div class="pill">Nemt at printe</div>
-        </div>
-
-        <div class="btns">
-          <button class="primary" id="makePromptBtn">Lav prompt</button>
-          <button class="ghost" id="copyBtn">Kopiér</button>
-          <button class="ghost" id="downloadBtn">Download .txt</button>
-          <button class="danger" id="resetBtn">Nulstil</button>
-        </div>
-
-        <div class="inline">
-          <span class="hint">Autosave: <b>til</b> (gemmes i browseren)</span>
-        </div>
-      </div>
-
-      <div class="card">
-        <h2>Prompt (klar til ChatGPT)</h2>
-        <div class="output" role="region" aria-label="Prompt output">
-          <div class="outputTop">
-            <strong>Output</strong>
-            <div class="meter" id="charCount">0 tegn</div>
-          </div>
-          <pre id="promptOut">Tryk “Lav prompt” når du er klar…</pre>
-        </div>
-
-        <div class="worksheetPreview" aria-label="Visuel fornemmelse af matematik-ark">
-          <h4>Sådan kommer elev-arket til at føles</h4>
-          <div class="previewGrid">
-            <div class="previewBox">
-              <b>Lektion 1</b>
-              <div>Tydelige opgavebokse · Basis/Plus/Challenge · plads til svar</div>
-            </div>
-            <div class="previewBox">
-              <b>Lektion 2</b>
-              <div>Samme layout · nye kontekster ud fra elevens interesser</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="footerNote">Tip: Når du får .txt-filen, kan du bare copy/paste hele prompten i ChatGPT.</div>
-      </div>
-    </aside>
-
-    <!-- Main: questionnaire -->
-    <main class="main" aria-label="Spørgeskema">
-      <!-- 1 -->
-      <section class="section" data-q="q1">
-        <div class="sectionHeader">
-          <h3>🧠 1. Når jeg arbejder med matematik …</h3>
-          <div class="rule">Max 1 kryds</div>
-        </div>
-        <div class="options" role="group" aria-label="Q1">
-          <label class="opt"><input type="radio" name="q1" value="Det føles let for mig"><span>Det føles let for mig</span></label>
-          <label class="opt"><input type="radio" name="q1" value="Det føles ok – noget er let, noget er svært"><span>Det føles ok – noget er let, noget er svært</span></label>
-          <label class="opt"><input type="radio" name="q1" value="Det føles svært, men jeg vil gerne blive bedre"><span>Det føles svært, men jeg vil gerne blive bedre</span></label>
-          <label class="opt"><input type="radio" name="q1" value="Det afhænger af, hvad vi arbejder med"><span>Det afhænger af, hvad vi arbejder med</span></label>
-        </div>
-      </section>
-
-      <!-- 2 -->
-      <section class="section" data-q="q2">
-        <div class="sectionHeader">
-          <h3>🚀 2. Når vi starter på en ny opgave, vil jeg helst …</h3>
-          <div class="rule">Max 1 kryds</div>
-        </div>
-        <div class="options" role="group" aria-label="Q2">
-          <label class="opt"><input type="radio" name="q2" value="Starte med noget let og blive sikker"><span>Starte med noget let og blive sikker</span></label>
-          <label class="opt"><input type="radio" name="q2" value="Starte med noget svært og udfordre mig selv"><span>Starte med noget svært og udfordre mig selv</span></label>
-        </div>
-      </section>
-
-      <!-- 3 -->
-      <section class="section" data-q="q3">
-        <div class="sectionHeader">
-          <h3>🔢 3. Jeg vil gerne blive bedre til …</h3>
-          <div class="rule">Vælg flere</div>
-        </div>
-        <div class="options" role="group" aria-label="Q3">
-          <label class="opt"><input type="checkbox" name="q3" value="Plus og minus"><span>Plus og minus</span></label>
-          <label class="opt"><input type="checkbox" name="q3" value="Gange"><span>Gange</span></label>
-          <label class="opt"><input type="checkbox" name="q3" value="Division"><span>Division</span></label>
-          <label class="opt"><input type="checkbox" name="q3" value="Brøker (pizza-, kage- og del-tal)"><span>Brøker (pizza-, kage- og del-tal 🍕)</span></label>
-          <label class="opt"><input type="checkbox" name="q3" value="Måling (tid, penge, længde, vægt)"><span>Måling (tid, penge, længde, vægt)</span></label>
-          <label class="opt"><input type="checkbox" name="q3" value="Problemer og gåder"><span>Problemer og gåder</span></label>
-          <label class="opt"><input type="checkbox" name="q3" value="Matematik med historier og fantasi"><span>Matematik med historier og fantasi</span></label>
-        </div>
-      </section>
-
-      <!-- 4 -->
-      <section class="section" data-q="q4">
-        <div class="sectionHeader">
-          <h3>🎮 4. Matematik er sjovest for mig, når det handler om …</h3>
-          <div class="rule">Vælg flere</div>
-        </div>
-        <div class="options" role="group" aria-label="Q4">
-          <label class="opt"><input type="checkbox" name="q4" value="Spil"><span>Spil</span></label>
-          <label class="opt"><input type="checkbox" name="q4" value="Sport"><span>Sport</span></label>
-          <label class="opt"><input type="checkbox" name="q4" value="Gaming"><span>Gaming</span></label>
-          <label class="opt"><input type="checkbox" name="q4" value="Dyr"><span>Dyr</span></label>
-          <label class="opt"><input type="checkbox" name="q4" value="Mad og butikker"><span>Mad og butikker</span></label>
-          <label class="opt"><input type="checkbox" name="q4" value="Musik, dans eller TikTok"><span>Musik, dans eller TikTok</span></label>
-          <label class="opt"><input type="checkbox" name="q4" value="Eventyr, fantasi og magi"><span>Eventyr, fantasi og magi</span></label>
-          <label class="opt"><input type="checkbox" name="q4" value="Virkelige ting fra hverdagen"><span>Virkelige ting fra hverdagen</span></label>
-        </div>
-        <div class="inline">
-          <div style="flex:1">
-            <label for="q4extra">Uddyb (valgfrit)</label>
-            <input id="q4extra" type="text" placeholder="Fx Minecraft, heste, madlavning, fodbold, …">
-          </div>
-        </div>
-      </section>
-
-      <!-- 5 -->
-      <section class="section" data-q="q5">
-        <div class="sectionHeader">
-          <h3>🧩 5. Når jeg arbejder bedst, er det fordi …</h3>
-          <div class="rule">Max 2 krydser</div>
-        </div>
-        <div class="options limit2" role="group" aria-label="Q5" data-limit="2" data-name="q5">
-          <label class="opt"><input type="checkbox" name="q5" value="Jeg kan arbejde i ro"><span>Jeg kan arbejde i ro</span></label>
-          <label class="opt"><input type="checkbox" name="q5" value="Jeg kan tale med andre"><span>Jeg kan tale med andre</span></label>
-          <label class="opt"><input type="checkbox" name="q5" value="Jeg kan bevæge mig lidt"><span>Jeg kan bevæge mig lidt</span></label>
-          <label class="opt"><input type="checkbox" name="q5" value="Jeg kan skifte mellem opgaver"><span>Jeg kan skifte mellem opgaver</span></label>
-          <label class="opt"><input type="checkbox" name="q5" value="Jeg ved præcis, hvad jeg skal"><span>Jeg ved præcis, hvad jeg skal</span></label>
-          <label class="opt"><input type="checkbox" name="q5" value="Jeg selv må vælge noget"><span>Jeg selv må vælge noget</span></label>
-        </div>
-      </section>
-
-      <!-- 6 -->
-      <section class="section" data-q="q6">
-        <div class="sectionHeader">
-          <h3>👥 6. Jeg arbejder bedst …</h3>
-          <div class="rule">Max 1 kryds</div>
-        </div>
-        <div class="options" role="group" aria-label="Q6">
-          <label class="opt"><input type="radio" name="q6" value="Alene"><span>Alene</span></label>
-          <label class="opt"><input type="radio" name="q6" value="Sammen med én anden"><span>Sammen med én anden</span></label>
-          <label class="opt"><input type="radio" name="q6" value="I en lille gruppe"><span>I en lille gruppe</span></label>
-          <label class="opt"><input type="radio" name="q6" value="Forskelligt – det kommer an på opgaven"><span>Forskelligt – det kommer an på opgaven</span></label>
-        </div>
-      </section>
-
-      <!-- 7 -->
-      <section class="section" data-q="q7">
-        <div class="sectionHeader">
-          <h3>🛠️ 7. Når jeg skal lære noget nyt, hjælper det mig mest at …</h3>
-          <div class="rule">Max 2 krydser</div>
-        </div>
-        <div class="options limit2" role="group" aria-label="Q7" data-limit="2" data-name="q7">
-          <label class="opt"><input type="checkbox" name="q7" value="Få det forklaret"><span>Få det forklaret</span></label>
-          <label class="opt"><input type="checkbox" name="q7" value="Se et eksempel"><span>Se et eksempel</span></label>
-          <label class="opt"><input type="checkbox" name="q7" value="Prøve selv"><span>Prøve selv</span></label>
-          <label class="opt"><input type="checkbox" name="q7" value="Tale med andre om det"><span>Tale med andre om det</span></label>
-          <label class="opt"><input type="checkbox" name="q7" value="Tegne eller skrive"><span>Tegne eller skrive</span></label>
-        </div>
-      </section>
-
-      <!-- 8 -->
-      <section class="section" data-q="q8">
-        <div class="sectionHeader">
-          <h3>🧠 8. Når noget er svært, vil jeg helst …</h3>
-          <div class="rule">Max 1 kryds</div>
-        </div>
-        <div class="options" role="group" aria-label="Q8">
-          <label class="opt"><input type="radio" name="q8" value="Kunne spørge lærerne"><span>Kunne spørge lærerne</span></label>
-          <label class="opt"><input type="radio" name="q8" value="Prøve selv først"><span>Prøve selv først</span></label>
-          <label class="opt"><input type="radio" name="q8" value="Spørge en ven"><span>Spørge en ven</span></label>
-        </div>
-      </section>
-
-      <!-- 9 -->
-      <section class="section" data-q="q9">
-        <div class="sectionHeader">
-          <h3>🎛️ 9. Når vi arbejder i matematik, vil jeg helst …</h3>
-          <div class="rule">Max 1 kryds</div>
-        </div>
-        <div class="options" role="group" aria-label="Q9">
-          <label class="opt"><input type="radio" name="q9" value="Have faste opgaver"><span>Have faste opgaver</span></label>
-          <label class="opt"><input type="radio" name="q9" value="Kunne skifte mellem opgaver undervejs"><span>Kunne skifte mellem opgaver undervejs</span></label>
-        </div>
-      </section>
-
-      <!-- 10 -->
-      <section class="section" data-q="q10">
-        <div class="sectionHeader">
-          <h3>🔄 10. Jeg kan godt lide at …</h3>
-          <div class="rule">Max 1 kryds</div>
-        </div>
-        <div class="options" role="group" aria-label="Q10">
-          <label class="opt"><input type="radio" name="q10" value="Arbejde længe med én opgave"><span>Arbejde længe med én opgave</span></label>
-          <label class="opt"><input type="radio" name="q10" value="Arbejde med flere små opgaver"><span>Arbejde med flere små opgaver</span></label>
-        </div>
-      </section>
-
-      <!-- 11 -->
-      <section class="section" data-q="q11">
-        <div class="sectionHeader">
-          <h3>⭐ 11. Det gør mig stolt i skolen, når …</h3>
-          <div class="rule">Max 1 kryds</div>
-        </div>
-        <div class="options" role="group" aria-label="Q11">
-          <label class="opt"><input type="radio" name="q11" value="Jeg forstår noget nyt"><span>Jeg forstår noget nyt</span></label>
-          <label class="opt"><input type="radio" name="q11" value="Jeg bliver bedre end før"><span>Jeg bliver bedre end før</span></label>
-          <label class="opt"><input type="radio" name="q11" value="Jeg klarer en svær opgave"><span>Jeg klarer en svær opgave</span></label>
-        </div>
-      </section>
-
-      <!-- 12 -->
-      <section class="section" data-q="q12">
-        <div class="sectionHeader">
-          <h3>🎒 12. Jeg vil gerne blive bedre til …</h3>
-          <div class="rule">Vælg flere</div>
-        </div>
-        <div class="options" role="group" aria-label="Q12">
-          <label class="opt"><input type="checkbox" name="q12" value="At koncentrere mig"><span>At koncentrere mig</span></label>
-          <label class="opt"><input type="checkbox" name="q12" value="At arbejde selv"><span>At arbejde selv</span></label>
-          <label class="opt"><input type="checkbox" name="q12" value="At arbejde sammen med andre"><span>At arbejde sammen med andre</span></label>
-          <label class="opt"><input type="checkbox" name="q12" value="At forklare mine tanker"><span>At forklare mine tanker</span></label>
-          <label class="opt"><input type="checkbox" name="q12" value="At turde prøve svære ting"><span>At turde prøve svære ting</span></label>
-        </div>
-      </section>
-
-      <!-- 13 -->
-      <section class="section" data-q="q13">
-        <div class="sectionHeader">
-          <h3>🌈 13. Hvis skolen var helt perfekt for mig, ville den …</h3>
-          <div class="rule">Vælg flere</div>
-        </div>
-        <div class="options" role="group" aria-label="Q13">
-          <label class="opt"><input type="checkbox" name="q13" value="Have flere valg"><span>Have flere valg</span></label>
-          <label class="opt"><input type="checkbox" name="q13" value="Have flere kreative opgaver"><span>Have flere kreative opgaver</span></label>
-          <label class="opt"><input type="checkbox" name="q13" value="Have mere ro"><span>Have mere ro</span></label>
-          <label class="opt"><input type="checkbox" name="q13" value="Have mere bevægelse"><span>Have mere bevægelse</span></label>
-          <label class="opt"><input type="checkbox" name="q13" value="Have mere leg og fantasi"><span>Have mere leg og fantasi</span></label>
-          <label class="opt"><input type="checkbox" name="q13" value="Have mere tid til fordybelse"><span>Have mere tid til fordybelse</span></label>
-        </div>
-      </section>
-
-      <!-- 14 -->
-      <section class="section" data-q="q14">
-        <div class="sectionHeader">
-          <h3>✍️ 14. Er der noget, vi som lærere skal vide om dig? (frivilligt)</h3>
-          <div class="rule">Tekst</div>
-        </div>
-        <div class="inline" style="margin-top:0">
-          <div style="flex:1; position:relative">
-            <label for="q14text">Skriv her (valgfrit)</label>
-            <textarea id="q14text" placeholder="Fx: Jeg bliver hurtigt træt sidst på dagen / Jeg vil gerne have tydelige trin / Jeg bliver rolig af …"></textarea>
-          </div>
-        </div>
-      </section>
-    </main>
   </div>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script>
-    // ---------------------------
     // Helpers
-    // ---------------------------
     const $ = (sel, root=document) => root.querySelector(sel);
     const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
 
@@ -689,33 +884,20 @@
     function getCheckedValues(name){
       return $$(`input[name="${name}"]:checked`).map(i => i.value);
     }
-
     function getRadioValue(name){
       const el = $(`input[name="${name}"]:checked`);
       return el ? el.value : "";
     }
 
-    function cleanLines(s){
-      return (s || "")
-        .split("\n")
-        .map(l => l.trim())
-        .filter(Boolean)
-        .join("\n");
-    }
-
-    // ---------------------------
-    // Max-2 limiter for checkboxes
-    // ---------------------------
+    // Max-2 limiter
     function setupLimiters(){
       $$(".limit2").forEach(group=>{
         const limit = Number(group.dataset.limit || 2);
         const inputs = $$('input[type="checkbox"]', group);
-
         inputs.forEach(inp=>{
           inp.addEventListener("change", ()=>{
             const checked = inputs.filter(i=>i.checked);
             if(checked.length > limit){
-              // undo latest
               inp.checked = false;
               toast(`Max ${limit} krydser her 🙂`);
             }
@@ -725,10 +907,8 @@
       });
     }
 
-    // ---------------------------
     // Autosave (localStorage)
-    // ---------------------------
-    const LS_KEY = "math_prompt_form_v1";
+    const LS_KEY = "math_prompt_form_birch_v1";
     function saveState(){
       const state = {
         studentName: $("#studentName").value.trim(),
@@ -749,11 +929,7 @@
         $("#studentClass").value = state.studentClass || "";
         $("#q4extra").value = state.q4extra || "";
         $("#q14text").value = state.q14text || "";
-
-        // Clear
         $$("input").forEach(i=>i.checked=false);
-
-        // Restore
         (state.checked || []).forEach(item=>{
           const candidates = $$(`input[name="${item.name}"]`);
           const match = candidates.find(c => c.value === item.value && c.type === item.type);
@@ -771,9 +947,7 @@
       });
     }
 
-    // ---------------------------
     // Prompt generation
-    // ---------------------------
     function buildPrompt(){
       const studentName = ($("#studentName").value || "").trim() || "___";
       const studentClass = ($("#studentClass").value || "").trim() || "4.__";
@@ -802,8 +976,7 @@
       const interests = uniq([...(answers.q4||[]), answers.q4extra]).filter(Boolean);
       const focusAreas = uniq([...(answers.q3||[])]).filter(Boolean);
 
-      const prompt =
-`Du er en dansk matematiklærer for 4. klasse og didaktisk designer.
+      return `Du er en dansk matematiklærer for 4. klasse og didaktisk designer.
 
 Lav et PERSONLIGT matematikforløb til eleven ud fra elevens besvarelse.
 
@@ -880,8 +1053,6 @@ EKSTRA DESIGNKRAV til opgaverne:
 - Variation: bland fx regnestrategier, problemløsning, små tekststykker, og mål/penge/tid hvis det passer.
 
 VIGTIGT: Din respons skal KUN være selve arbejdsarket i printbart layout. Intet andet.`;
-
-      return prompt;
     }
 
     function setPromptOut(text){
@@ -890,9 +1061,7 @@ VIGTIGT: Din respons skal KUN være selve arbejdsarket i printbart layout. Intet
       $("#charCount").textContent = `${text.length} tegn`;
     }
 
-    // ---------------------------
     // Copy / download / reset
-    // ---------------------------
     async function copyPrompt(){
       const text = $("#promptOut").textContent || "";
       if(!text || text.includes("Tryk “Lav prompt”")){ toast("Lav prompt først 🙂"); return; }
@@ -900,7 +1069,6 @@ VIGTIGT: Din respons skal KUN være selve arbejdsarket i printbart layout. Intet
         await navigator.clipboard.writeText(text);
         toast("Kopieret ✅");
       }catch(e){
-        // fallback
         const ta = document.createElement("textarea");
         ta.value = text;
         document.body.appendChild(ta);
@@ -943,9 +1111,7 @@ VIGTIGT: Din respons skal KUN være selve arbejdsarket i printbart layout. Intet
       toast("Nulstillet");
     }
 
-    // ---------------------------
     // Init
-    // ---------------------------
     setupLimiters();
     loadState();
     bindAutosave();
