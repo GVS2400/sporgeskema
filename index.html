@@ -3,14 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Min måde at lære på – Prompt-generator</title>
+  <title>Mit personlige matematikforløb – Prompt-generator</title>
 
   <style>
     :root{
-      /* Inspired by your birch-forest poster: calm teal + warm accent blobs */
-      --bgA:#d7efe9;       /* misty mint */
-      --bgB:#f6efe6;       /* warm paper */
-      --paper:#fffdf9;
+      --bgA:#d7efe9;
+      --bgB:#f6efe6;
       --ink:#0f172a;
       --muted:#475569;
 
@@ -28,8 +26,6 @@
       --shadow2: 0 12px 26px rgba(2,6,23,.08);
 
       --radius: 18px;
-      --radius2: 14px;
-
       --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
       --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
     }
@@ -47,80 +43,33 @@
         linear-gradient(180deg, var(--bgA) 0%, var(--bgB) 100%);
     }
 
-    /* ---------- Layout ---------- */
-    .wrap{
-      max-width: 1180px;
-      margin: 0 auto;
-      padding: 16px 14px 28px;
-    }
+    .wrap{ max-width: 1180px; margin: 0 auto; padding: 16px 14px 28px; }
+    .shell{ display:grid; grid-template-columns: 360px 1fr; gap: 16px; align-items: start; margin-top: 14px; }
+    @media (max-width: 980px){ .shell{ grid-template-columns: 1fr; } .side{ position: static !important; } }
 
-    .shell{
-      display:grid;
-      grid-template-columns: 360px 1fr;
-      gap: 16px;
-      align-items: start;
-      margin-top: 14px;
-    }
-    @media (max-width: 980px){
-      .shell{ grid-template-columns: 1fr; }
-      .side{ position: static !important; }
-    }
-
-    /* ---------- Header / Hero ---------- */
     .hero{
-      border-radius: 22px;
-      overflow:hidden;
+      border-radius: 22px; overflow:hidden;
       border: 1px solid rgba(231,220,203,.9);
       box-shadow: var(--shadow);
       background: rgba(255,255,255,.70);
       backdrop-filter: blur(8px);
     }
-
     .heroTop{
-      display:flex;
-      align-items:center;
-      justify-content: space-between;
-      gap: 12px;
+      display:flex; align-items:center; justify-content: space-between; gap: 12px;
       padding: 12px 14px;
       border-bottom: 1px solid rgba(231,220,203,.9);
-      background:
-        linear-gradient(90deg,
-          rgba(42,143,141,.16),
-          rgba(240,183,74,.12),
-          rgba(228,102,79,.10)
-        );
+      background: linear-gradient(90deg, rgba(42,143,141,.16), rgba(240,183,74,.12), rgba(228,102,79,.10));
     }
-    .brand{
-      display:flex;
-      align-items:center;
-      gap: 10px;
-    }
+    .brand{ display:flex; align-items:center; gap: 10px; }
     .dot{
-      width: 14px;
-      height: 14px;
-      border-radius: 999px;
+      width: 14px; height: 14px; border-radius: 999px;
       background: conic-gradient(from 220deg, var(--teal), var(--ochre), var(--coral), var(--plum), var(--teal));
       box-shadow: 0 10px 18px rgba(2,6,23,.18);
     }
-    .brandTitle{
-      line-height: 1.1;
-    }
-    .brandTitle h1{
-      margin:0;
-      font-size: 16px;
-      letter-spacing: .7px;
-      text-transform: uppercase;
-    }
-    .brandTitle small{
-      display:block;
-      margin-top: 2px;
-      font-size: 12px;
-      color: rgba(15,23,42,.72);
-    }
-    .heroTop .badge{
-      font-size: 12px;
-      padding: 6px 10px;
-      border-radius: 999px;
+    .brandTitle h1{ margin:0; font-size: 16px; letter-spacing: .7px; text-transform: uppercase; }
+    .brandTitle small{ display:block; margin-top: 2px; font-size: 12px; color: rgba(15,23,42,.72); }
+    .badge{
+      font-size: 12px; padding: 6px 10px; border-radius: 999px;
       background: rgba(255,255,255,.80);
       border: 1px solid rgba(231,220,203,.9);
       color: rgba(15,23,42,.72);
@@ -128,18 +77,13 @@
     }
 
     .heroBody{
-      display:grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap: 12px;
+      display:grid; grid-template-columns: 1.1fr .9fr; gap: 12px;
       padding: 12px 14px 14px;
       background:
         radial-gradient(760px 220px at 18% 0%, rgba(42,143,141,.12), transparent 62%),
         radial-gradient(760px 220px at 80% 100%, rgba(240,183,74,.10), transparent 62%);
     }
-    @media (max-width: 880px){
-      .heroBody{ grid-template-columns: 1fr; }
-    }
-
+    @media (max-width: 880px){ .heroBody{ grid-template-columns: 1fr; } }
     .heroText{
       background: rgba(255,255,255,.82);
       border: 1px solid rgba(231,220,203,.9);
@@ -147,33 +91,22 @@
       padding: 12px;
       box-shadow: var(--shadow2);
     }
-    .heroText p{
-      margin:0;
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.35;
-    }
+    .heroText p{ margin:0; color: var(--muted); font-size: 14px; line-height: 1.35; }
     .heroText b{ color: var(--ink); }
 
     .banner{
-      border-radius: 18px;
-      overflow:hidden;
+      border-radius: 18px; overflow:hidden;
       border: 1px solid rgba(231,220,203,.9);
       box-shadow: var(--shadow2);
       background:#fff;
       min-height: 128px;
-      display:flex;
-      align-items:stretch;
+      display:flex; align-items:stretch;
     }
     .banner svg{ width:100%; height:100%; display:block; }
 
-    /* ---------- Sidebar ---------- */
     .side{
-      position: sticky;
-      top: 14px;
-      display:flex;
-      flex-direction:column;
-      gap: 12px;
+      position: sticky; top: 14px;
+      display:flex; flex-direction:column; gap: 12px;
     }
 
     .card{
@@ -184,28 +117,12 @@
       padding: 14px;
       backdrop-filter: blur(8px);
     }
+    .card h2{ margin: 0 0 10px; font-size: 14px; letter-spacing:.2px; text-transform: uppercase; color: rgba(15,23,42,.85); }
 
-    .card h2{
-      margin: 0 0 10px;
-      font-size: 14px;
-      letter-spacing:.2px;
-      text-transform: uppercase;
-      color: rgba(15,23,42,.85);
-    }
-
-    .row{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:10px;
-    }
+    .row{ display:grid; grid-template-columns: 1fr 1fr; gap:10px; }
     @media (max-width: 420px){ .row{ grid-template-columns: 1fr; } }
 
-    label{
-      display:block;
-      font-size: 13px;
-      margin: 0 0 6px;
-      color: var(--muted);
-    }
+    label{ display:block; font-size: 13px; margin: 0 0 6px; color: var(--muted); }
 
     input[type="text"], textarea{
       width:100%;
@@ -224,13 +141,7 @@
     }
     textarea{ min-height: 84px; resize: vertical; }
 
-    .btns{
-      display:flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 10px;
-    }
-
+    .btns{ display:flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
     button{
       border: 1px solid rgba(231,220,203,.95);
       background: rgba(255,255,255,.95);
@@ -240,42 +151,14 @@
       font-weight: 780;
       font-size: 13px;
       cursor:pointer;
-      transition: transform .05s ease, box-shadow .2s ease, border-color .2s ease, filter .2s ease;
+      transition: transform .05s ease, box-shadow .2s ease, border-color .2s ease;
     }
-    button:hover{
-      box-shadow: 0 12px 20px rgba(2,6,23,.10);
-      border-color: rgba(217,205,187,1);
-    }
+    button:hover{ box-shadow: 0 12px 20px rgba(2,6,23,.10); border-color: rgba(217,205,187,1); }
     button:active{ transform: translateY(1px); }
+    .primary{ background: linear-gradient(180deg, rgba(42,143,141,.95), rgba(30,111,109,.98)); color:#fff; border-color: rgba(42,143,141,.55); }
+    .danger{ background: linear-gradient(180deg, rgba(228,102,79,.95), rgba(200,78,57,.98)); color:#fff; border-color: rgba(228,102,79,.55); }
 
-    .primary{
-      background: linear-gradient(180deg, rgba(42,143,141,.95), rgba(30,111,109,.98));
-      color:#fff;
-      border-color: rgba(42,143,141,.55);
-    }
-    .danger{
-      background: linear-gradient(180deg, rgba(228,102,79,.95), rgba(200,78,57,.98));
-      color:#fff;
-      border-color: rgba(228,102,79,.55);
-    }
-
-    .pills{ display:flex; flex-wrap:wrap; gap:8px; margin-top: 10px; }
-    .pill{
-      font-size: 12px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(231,220,203,.95);
-      background: rgba(255,255,255,.85);
-      color: rgba(15,23,42,.78);
-      font-weight: 720;
-    }
-
-    /* ---------- Main sections (math-book feel) ---------- */
-    .main{
-      display:flex;
-      flex-direction: column;
-      gap: 12px;
-    }
+    .main{ display:flex; flex-direction: column; gap: 12px; }
 
     .section{
       background: rgba(255,255,255,.84);
@@ -287,113 +170,55 @@
       overflow:hidden;
       backdrop-filter: blur(8px);
     }
-
-    /* “Chapter stripe” like a book */
-    .stripe{
-      position:absolute;
-      left:0; top:0; bottom:0;
-      width: 10px;
-      background: linear-gradient(180deg, var(--teal), rgba(42,143,141,.35));
-      opacity:.95;
-    }
+    .stripe{ position:absolute; left:0; top:0; bottom:0; width: 10px; background: linear-gradient(180deg, var(--teal), rgba(42,143,141,.35)); opacity:.95; }
     .section[data-tone="ochre"] .stripe{ background: linear-gradient(180deg, var(--ochre), rgba(240,183,74,.35)); }
     .section[data-tone="coral"] .stripe{ background: linear-gradient(180deg, var(--coral), rgba(228,102,79,.35)); }
     .section[data-tone="plum"]  .stripe{ background: linear-gradient(180deg, var(--plum), rgba(138,107,189,.35)); }
 
     .sectionInner{ position:relative; padding-left: 10px; }
-
-    .sectionHeader{
-      display:flex;
-      align-items:flex-start;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 10px;
-    }
-    .sectionHeader h3{
-      margin: 0;
-      font-size: 15px;
-      letter-spacing:.2px;
-    }
+    .sectionHeader{ display:flex; align-items:flex-start; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
+    .sectionHeader h3{ margin: 0; font-size: 15px; letter-spacing:.2px; }
     .rule{
-      font-size: 12px;
-      color: rgba(15,23,42,.70);
+      font-size: 12px; color: rgba(15,23,42,.70);
       white-space: nowrap;
       border: 1px dashed rgba(217,205,187,1);
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.82);
+      padding: 6px 10px; border-radius: 999px; background: rgba(255,255,255,.82);
     }
 
-    .options{
-      display:flex;
-      flex-direction: column; /* IMPORTANT: answers stacked vertically */
-      gap: 8px;
-    }
-
+    .options{ display:flex; flex-direction: column; gap: 8px; }
     .opt{
-      display:flex;
-      align-items:flex-start;
-      gap: 10px;
+      display:flex; align-items:flex-start; gap: 10px;
       padding: 10px 10px;
       border-radius: 14px;
       border: 1px solid rgba(231,220,203,.95);
       background: rgba(255,255,255,.92);
       transition: border-color .2s ease, transform .05s ease, box-shadow .2s ease;
-      position: relative;
-      overflow:hidden;
+      position: relative; overflow:hidden;
     }
-
-    /* Subtle dotted texture inside options (very light) */
     .opt:before{
-      content:"";
-      position:absolute;
-      inset:-1px;
+      content:""; position:absolute; inset:-1px;
       background-image: radial-gradient(rgba(15,23,42,.07) 1px, transparent 1px);
       background-size: 16px 16px;
-      opacity: .10;
-      pointer-events:none;
+      opacity: .10; pointer-events:none;
     }
-
-    .opt:hover{
-      border-color: rgba(42,143,141,.45);
-      box-shadow: 0 10px 18px rgba(2,6,23,.06);
-    }
+    .opt:hover{ border-color: rgba(42,143,141,.45); box-shadow: 0 10px 18px rgba(2,6,23,.06); }
     .opt:active{ transform: translateY(1px); }
-
     .opt input{ margin-top: 2px; transform: scale(1.12); }
     .opt span{ font-size: 14px; line-height: 1.25; position: relative; }
 
-    .inline{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      align-items:center;
-      margin-top: 10px;
-    }
+    .inline{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top: 10px; }
 
-    /* ---------- Output ---------- */
     .output{
-      background:
-        linear-gradient(180deg, rgba(15,23,42,.98), rgba(11,18,32,.98));
+      background: linear-gradient(180deg, rgba(15,23,42,.98), rgba(11,18,32,.98));
       color: #e5e7eb;
       border-radius: var(--radius);
       border: 1px solid rgba(255,255,255,.12);
       padding: 12px;
       box-shadow: 0 14px 34px rgba(11,18,32,.24);
     }
-    .outputTop{
-      display:flex;
-      justify-content: space-between;
-      align-items:center;
-      gap: 10px;
-      margin-bottom: 10px;
-    }
+    .outputTop{ display:flex; justify-content: space-between; align-items:center; gap: 10px; margin-bottom: 10px; }
     .outputTop strong{ font-size: 13px; letter-spacing:.2px; text-transform: uppercase; }
-    .meter{
-      font-size: 12px;
-      color: rgba(229,231,235,.80);
-      font-family: var(--mono);
-    }
+    .meter{ font-size: 12px; color: rgba(229,231,235,.80); font-family: var(--mono); }
     pre{
       margin:0;
       white-space: pre-wrap;
@@ -418,17 +243,9 @@
       pointer-events:none;
       transition: opacity .2s ease, transform .2s ease;
     }
-    .toast.show{
-      opacity:1;
-      transform: translateX(-50%) translateY(-2px);
-    }
+    .toast.show{ opacity:1; transform: translateX(-50%) translateY(-2px); }
 
-    .footerNote{
-      text-align:center;
-      color: rgba(15,23,42,.70);
-      font-size: 12px;
-      margin-top: 10px;
-    }
+    .footerNote{ text-align:center; color: rgba(15,23,42,.70); font-size: 12px; margin-top: 10px; }
   </style>
 </head>
 
@@ -443,7 +260,7 @@
             <small>Udfyld → Lav prompt → Download .txt → send til Anders</small>
           </div>
         </div>
-        <div class="badge">4. klasse GVS </div>
+        <div class="badge">4. klasse GVS</div>
       </div>
 
       <div class="heroBody">
@@ -454,8 +271,8 @@
           </p>
         </div>
 
-        <!-- Header image (SVG) in the style you showed -->
         <div class="banner" aria-label="Header-billede">
+          <!-- (samme SVG som før – beholdt) -->
           <svg viewBox="0 0 900 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Birkeskov header">
             <defs>
               <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
@@ -471,22 +288,18 @@
                 <circle cx="12" cy="11" r="1.2" fill="rgba(15,23,42,.28)"/>
                 <circle cx="7" cy="15" r="1.1" fill="rgba(15,23,42,.22)"/>
               </pattern>
-
               <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
                 <feGaussianBlur stdDeviation="0.6"/>
               </filter>
             </defs>
 
-            <!-- Sky -->
             <rect width="900" height="220" fill="url(#sky)"/>
 
-            <!-- Hills -->
             <path d="M0,190 C150,150 260,170 380,150 C520,125 640,155 900,120 L900,220 L0,220 Z"
                   fill="url(#hill)" opacity=".92"/>
             <path d="M0,210 C180,180 300,210 420,190 C560,165 660,185 900,165 L900,220 L0,220 Z"
                   fill="#0f3f3e" opacity=".35"/>
 
-            <!-- Floating blobs (like your reference) -->
             <g opacity=".88" filter="url(#soft)">
               <ellipse cx="165" cy="62" rx="120" ry="36" fill="#f0b74a"/>
               <ellipse cx="610" cy="56" rx="128" ry="40" fill="#e4664f"/>
@@ -494,16 +307,13 @@
               <ellipse cx="740" cy="92" rx="130" ry="44" fill="#f4e7d5" opacity=".65"/>
             </g>
 
-            <!-- Dotted texture on blobs -->
             <g opacity=".35">
               <ellipse cx="165" cy="62" rx="120" ry="36" fill="url(#sprinkle)"/>
               <ellipse cx="610" cy="56" rx="128" ry="40" fill="url(#sprinkle)"/>
               <ellipse cx="452" cy="90" rx="150" ry="44" fill="url(#sprinkle)"/>
             </g>
 
-            <!-- Birch trunks -->
             <g>
-              <!-- trunk helper function by repetition -->
               <g transform="translate(110,18)">
                 <rect x="0" y="0" width="48" height="176" rx="14" fill="#fffaf2"/>
                 <path d="M6,168 l12,18 l12,-18 l12,18 l12,-18 v8 H6 Z" fill="#0f3f3e" opacity=".65"/>
@@ -565,7 +375,6 @@
               </g>
             </g>
 
-            <!-- Ground sprinkles -->
             <g opacity=".45">
               <rect x="30" y="188" width="170" height="24" fill="url(#sprinkle)"/>
               <rect x="300" y="195" width="240" height="22" fill="url(#sprinkle)"/>
@@ -577,14 +386,13 @@
     </header>
 
     <div class="shell">
-      <!-- Sidebar -->
       <aside class="side">
         <div class="card">
           <h2>Elev</h2>
           <div class="row">
             <div>
               <label for="studentName">Navn</label>
-              <input id="studentName" type="text" placeholder="Fx Anders / Line / …">
+              <input id="studentName" type="text" placeholder="Fx Rose / Arly / …">
             </div>
             <div>
               <label for="studentClass">Klasse</label>
@@ -612,7 +420,6 @@
         </div>
       </aside>
 
-      <!-- Main questionnaire -->
       <main class="main" aria-label="Spørgeskema">
 
         <section class="section" data-tone="teal">
@@ -684,7 +491,7 @@
             <div class="inline">
               <div style="flex:1">
                 <label for="q4extra">Uddyb (valgfrit)</label>
-                <input id="q4extra" type="text" placeholder="Fx Minecraft, heste, madlavning, fodbold, …">
+                <input id="q4extra" type="text" placeholder="Fx Minecraft, Manchester City, Blackpink, …">
               </div>
             </div>
           </div>
@@ -697,7 +504,7 @@
               <h3>🧩 5. Når jeg arbejder bedst, er det fordi …</h3>
               <div class="rule">Max 2 krydser</div>
             </div>
-            <div class="options limit2" data-limit="2" data-name="q5">
+            <div class="options limit2" data-limit="2">
               <label class="opt"><input type="checkbox" name="q5" value="Jeg kan arbejde i ro"><span>Jeg kan arbejde i ro</span></label>
               <label class="opt"><input type="checkbox" name="q5" value="Jeg kan tale med andre"><span>Jeg kan tale med andre</span></label>
               <label class="opt"><input type="checkbox" name="q5" value="Jeg kan bevæge mig lidt"><span>Jeg kan bevæge mig lidt</span></label>
@@ -731,7 +538,7 @@
               <h3>🛠️ 7. Når jeg skal lære noget nyt, hjælper det mig mest at …</h3>
               <div class="rule">Max 2 krydser</div>
             </div>
-            <div class="options limit2" data-limit="2" data-name="q7">
+            <div class="options limit2" data-limit="2">
               <label class="opt"><input type="checkbox" name="q7" value="Få det forklaret"><span>Få det forklaret</span></label>
               <label class="opt"><input type="checkbox" name="q7" value="Se et eksempel"><span>Se et eksempel</span></label>
               <label class="opt"><input type="checkbox" name="q7" value="Prøve selv"><span>Prøve selv</span></label>
@@ -844,7 +651,7 @@
             <div class="inline" style="margin-top:0">
               <div style="flex:1">
                 <label for="q14text">Skriv her (valgfrit)</label>
-                <textarea id="q14text" placeholder="Fx: Jeg bliver hurtigt træt sidst på dagen / Jeg vil gerne have tydelige trin / Jeg bliver rolig af …"></textarea>
+                <textarea id="q14text" placeholder="Fx: Jeg elsker Erling Haaland / Jeg bliver rolig af …"></textarea>
               </div>
             </div>
           </div>
@@ -870,13 +677,8 @@
       toastTimer = setTimeout(()=>toastEl.classList.remove("show"), 1600);
     }
 
-    function uniq(arr){
-      return Array.from(new Set(arr)).filter(Boolean);
-    }
-
-    function getCheckedValues(name){
-      return $$(`input[name="${name}"]:checked`).map(i => i.value);
-    }
+    function uniq(arr){ return Array.from(new Set(arr)).filter(Boolean); }
+    function getCheckedValues(name){ return $$(`input[name="${name}"]:checked`).map(i => i.value); }
     function getRadioValue(name){
       const el = $(`input[name="${name}"]:checked`);
       return el ? el.value : "";
@@ -894,53 +696,12 @@
               inp.checked = false;
               toast(`Max ${limit} krydser her 🙂`);
             }
-            saveState();
           });
         });
       });
     }
 
-    // Autosave (localStorage)
-    const LS_KEY = "math_prompt_form_birch_v1";
-    function saveState(){
-      const state = {
-        studentName: $("#studentName").value.trim(),
-        studentClass: $("#studentClass").value.trim(),
-        q4extra: $("#q4extra").value.trim(),
-        q14text: $("#q14text").value.trim(),
-        checked: $$("input").filter(i=>i.checked).map(i=>({name:i.name, value:i.value, type:i.type}))
-      };
-      localStorage.setItem(LS_KEY, JSON.stringify(state));
-    }
-
-    function loadState(){
-      const raw = localStorage.getItem(LS_KEY);
-      if(!raw) return;
-      try{
-        const state = JSON.parse(raw);
-        $("#studentName").value = state.studentName || "";
-        $("#studentClass").value = state.studentClass || "";
-        $("#q4extra").value = state.q4extra || "";
-        $("#q14text").value = state.q14text || "";
-        $$("input").forEach(i=>i.checked=false);
-        (state.checked || []).forEach(item=>{
-          const candidates = $$(`input[name="${item.name}"]`);
-          const match = candidates.find(c => c.value === item.value && c.type === item.type);
-          if(match) match.checked = true;
-        });
-      }catch(e){
-        console.warn("Could not load state", e);
-      }
-    }
-
-    function bindAutosave(){
-      $$("input, textarea").forEach(el=>{
-        el.addEventListener("input", saveState);
-        el.addEventListener("change", saveState);
-      });
-    }
-
-    // Prompt generation
+    // Prompt generation (FIXED: inserts ALL answers + freetext + forces theme usage)
     function buildPrompt(){
       const studentName = ($("#studentName").value || "").trim() || "___";
       const studentClass = ($("#studentClass").value || "").trim() || "4.__";
@@ -963,29 +724,22 @@
         q14: ($("#q14text").value || "").trim()
       };
 
-      const fmtList = (arr) => arr && arr.length ? arr.map(x=>`- ${x}`).join("\n") : "- (intet valgt)";
+      const fmtList = (arr) => (arr && arr.length) ? arr.map(x=>`- ${x}`).join("\n") : "- (intet valgt)";
       const fmtSingle = (s) => s ? s : "(ikke valgt)";
 
-      const interests = uniq([...(answers.q4||[]), answers.q4extra]).filter(Boolean);
-      const focusAreas = uniq([...(answers.q3||[])]).filter(Boolean);
+      // Theme tokens the model MUST use
+      const themeTokens = uniq([
+        ...(answers.q4 || []),
+        answers.q4extra,
+        answers.q14
+      ]).filter(Boolean);
+
+      const focusAreas = uniq([...(answers.q3 || [])]).filter(Boolean);
 
       return `Du er en dansk matematiklærer for 4. klasse og didaktisk designer.
 
 DU SKAL LAVE ÉT SAMMENHÆNGENDE MATEMATIK-PROJEKT (som en mini-matematikbog), hvor alt hænger sammen fra start til slut.
-Projektet skal have en sammenhængende “mission”-ramme, der passer til elevens interesser.
-Undgå formuleringen “byg din egen”.
-
-Brug i stedet en af disse universelle rammer (vælg den, der matcher temaet bedst):
-- “Planlæg og gennemfør …”
-- “Din mission: fra valg til resultat”
-- “Fra idé til færdigt resultat”
-- “Sæt det op og få det til at gå op”
-
-Eksempler på tematisering (kun som rettesnor):
-- Fodbold: “Planlæg og gennemfør din sæson” (kampe, træning, point, mål, transfers, budget)
-- K-POP: “Planlæg og gennemfør en koncert” (setliste, tidsskema, billetter, budget, publikums-mål)
-- Gaming: “Din mission: klar en quest” (ressourcer, upgrades, points, tid, shop)
-- Mad/butik: “Planlæg en pop-up dag” (varer, priser, rabatter, overskud)
+Det skal føles som en “mission: fra valg til resultat” med faste trin, rammer, og et tydeligt slutprodukt.
 
 KRAV (skal overholdes):
 - Varighed: 2 lektioner á 45 minutter (2×45 min).
@@ -995,88 +749,80 @@ KRAV (skal overholdes):
 - Realistisk 4. klasse med stor niveauspredning:
   - Basis kan løses af elever der kæmper.
   - Challenge strækker de stærke.
-- Brug elevens interesser aktivt i hele projektets verden/fortælling (samme setting gennem begge lektioner).
-- Respektér elevens præferencer for ro/samarbejde/bevægelse/valg og læringsstrategier.
-- Ingen “fluff”: alt skal være konkret, let at afkode og uden forvirrende tekst.
+- Brug elevens interesser aktivt i hele projektets verden (samme setting gennem begge lektioner).
 
-PROJEKTSTRUKTUR (SKAL BRUGES):
-Projektet skal følge disse 5 faste trin (som en sammenhængende mission):
-TRIN 1 — VÆLG (eleven vælger mellem muligheder med tal/priser/størrelser/regler)
-TRIN 2 — PLANLÆG/TEGN (arbejde med felter/areal/placering/overblik – meget konkret)
-TRIN 3 — BUDGET/REGN (opstil tabel, regn totaler, rest, kontrol af regler)
-TRIN 4 — BONUS (indtjening/point/tid/rekorder → regn fortjeneste eller resultat)
-TRIN 5 — EKSTRA FOR DE HURTIGE (udvidelse, rabatter, procent, ekstra udfordring)
+PROJEKTSTRUKTUR (SKAL BRUGES I ALLE 6 BLOKKE: L1+L2 × Basis/Plus/Challenge):
+TRIN 1 — VÆLG (konkrete valg med tal/regler)
+TRIN 2 — PLANLÆG/TEGN (felter/placering/areal/overblik)
+TRIN 3 — BUDGET/REGN (tabel, total, kontrol)
+TRIN 4 — BONUS (point/tid/indtjening/resultat)
+TRIN 5 — EKSTRA (sværere twist)
 
-VIGTIGT:
-- De 5 trin skal hænge sammen i én og samme verden (ikke separate småopgaver).
-- Hver lektion skal have alle 5 trin i en “lektion-version” (lektion 2 bygger videre på lektion 1 og bruger de valg eleven allerede har lavet).
-- I lektion 2 skal der være mindst 2 steder, hvor eleven bruger noget fra lektion 1 (fx deres valg/budget/tegning) og regner videre på det.
+SÅDAN BLIVER DET PERSONLIGT (SKAL OVERHOLDES):
+- Vælg ét samlet tema-univers ud fra elevens interesse-input.
+- Brug MINIMUM 3 konkrete elev-ord/navne fra listen herunder direkte i opgaverne (som hold/navne/koncertnavn/targets osv.):
+${themeTokens.length ? themeTokens.map(t=>`- ${t}`).join("\n") : "- (ingen tema-ord angivet → vælg neutralt skoletema)"}
+
+- Hvis der står et specifikt navn (fx “Manchester City” / “Erling Haaland”), så SKAL de ord stå i opgaverne.
 
 ELEVINFO:
-Navn: [indsæt elevnavn]
-Klasse: [indsæt klasse]
+Navn: ${studentName}
+Klasse: ${studentClass}
 
-ELEVENS SVAR (brug dem aktivt):
-1) Matematik føles:
-[...]
-2) Start-præference:
-[...]
+ELEVENS SVAR:
+1) Matematik føles: ${fmtSingle(answers.q1)}
+2) Start: ${fmtSingle(answers.q2)}
 3) Fokusområder:
-[...]
-4) Interesse-temaer:
-[...]
+${fmtList(answers.q3)}
+4) Interesse-kryds:
+${fmtList(answers.q4)}
+4b) Uddyb: ${answers.q4extra ? answers.q4extra : "(ingen)"}
 5) Arbejder bedst når (max 2):
-[...]
-6) Alene/partner/gruppe:
-[...]
+${fmtList(answers.q5)}
+6) Arbejder bedst: ${fmtSingle(answers.q6)}
 7) Lærer bedst ved (max 2):
-[...]
-8) Når svært:
-[...]
-9) Fast/skifte:
-[...]
-10) Lange/korte opgaver:
-[...]
-11) Stolt når:
-[...]
+${fmtList(answers.q7)}
+8) Når svært: ${fmtSingle(answers.q8)}
+9) Fast/skifte: ${fmtSingle(answers.q9)}
+10) Lange/korte: ${fmtSingle(answers.q10)}
+11) Stolt når: ${fmtSingle(answers.q11)}
 12) Vil blive bedre til:
-[...]
+${fmtList(answers.q12)}
 13) Perfekt skole:
-[...]
+${fmtList(answers.q13)}
 14) Ekstra:
-[...]
+${answers.q14 ? answers.q14 : "(ingen)"}
 
-DESIGNPROFIL (brug til at vælge format):
-- Hvis eleven vælger “jeg vil skifte mellem opgaver” eller “flere små opgaver”, så gør trinopgaver kortere og flere.
-- Hvis eleven foretrækker ro/fordybelse, så gør færre men mere sammenhængende opgaver med plads til at regne.
-- Hvis eleven lærer ved “se eksempel”, så giv et mini-eksempel (meget kort) inde i opgaven — men uden forklarende tekst.
-- Hvis eleven lærer ved “prøve selv”, så drop eksempler og giv tydelige krav i stedet.
+MATEMATIK-INDHOLD:
+- Brug især elevens fokusområder fra #3: ${focusAreas.length ? focusAreas.join(", ") : "vælg ud fra svarene"}.
+- Brug blanding af plus/minus, gange/division, måling, brøker og problemløsning – så det føles som rigtig matematik.
+- Tallene skal passe til 4. klasse, men Challenge må være tydeligt udfordrende.
 
-MATEMATIKINDHOLD:
-- Brug især elevens fokusområder fra spørgsmål 3.
-- Indbyg blanding af (efter behov): plus/minus, gange/division, måling, brøker, problemløsning.
-- Alle tal skal passe til 4. klasse (Basis meget tilgængeligt, Challenge mere udfordrende men stadig realistisk).
+SAMMENHÆNG (DET DER GØR DET “GENIALT”):
+- Projektet skal have 3 “ankre”, som bruges igen og igen:
+  1) En VALGLISTE (hvad eleven vælger i trin 1)
+  2) En PLAN/OVERSIGT (trin 2)
+  3) Et BUDGET/REGNSKAB (trin 3)
+- Lektion 2 skal bygge videre på lektion 1 og BRUGE elevens egne ankertal mindst 2 steder.
 
-OPSÆTNINGEN AF DIT OUTPUT SKAL VÆRE PRÆCIS:
-- Overskrift: “MATEMATIK-PROJEKT: [projektets navn]”
-- Underoverskrift: “Elev: [navn] · Klasse: [klasse]”
+OUTPUTFORMAT (SKAL VÆRE PRÆCIS):
+- Overskrift: “MATEMATIK-PROJEKT: [navn der passer til temaet]”
+- Underoverskrift: “Elev: ${studentName} · Klasse: ${studentClass}”
 - LEKTION 1 (45 min)
   - BASIS / PLUS / CHALLENGE (3 separate blokke)
   - Inde i hver blok: TRIN 1–5 med tydelige underoverskrifter og opgavebokse.
 - LEKTION 2 (45 min)
   - BASIS / PLUS / CHALLENGE (3 separate blokke)
-  - Inde i hver blok: TRIN 1–5 (bygger videre på lektion 1).
+  - Inde i hver blok: TRIN 1–5 og tydelig “fortsættelse” af lektion 1.
 
 VIGTIGT: Din respons skal KUN være arbejdsarket i printbart layout. Intet andet.`;
     }
 
     function setPromptOut(text){
-      const out = $("#promptOut");
-      out.textContent = text;
+      $("#promptOut").textContent = text;
       $("#charCount").textContent = `${text.length} tegn`;
     }
 
-    // Copy / download / reset
     async function copyPrompt(){
       const text = $("#promptOut").textContent || "";
       if(!text || text.includes("Tryk “Lav prompt”")){ toast("Lav prompt først 🙂"); return; }
@@ -1121,20 +867,16 @@ VIGTIGT: Din respons skal KUN være arbejdsarket i printbart layout. Intet andet
       $("#studentClass").value="";
       $("#q4extra").value="";
       $("#q14text").value="";
-      localStorage.removeItem(LS_KEY);
       setPromptOut("Tryk “Lav prompt” når du er klar…");
       toast("Nulstillet");
     }
 
     // Init
     setupLimiters();
-    loadState();
-    bindAutosave();
 
     $("#makePromptBtn").addEventListener("click", ()=>{
       const prompt = buildPrompt();
       setPromptOut(prompt);
-      saveState();
       toast("Prompt klar ✅");
     });
 
